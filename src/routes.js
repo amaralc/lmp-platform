@@ -1,9 +1,7 @@
 // IMPORTS  ---------------------------------------------------------------------
-const {Router} = require('express');
+import {Router} from 'express';
 
 // CONTENT ---------------------------------------------------------------------
-
-// define routes como nov
 const routes = new Router();
 
 // define rota raiz 
@@ -12,4 +10,4 @@ routes.get('/', (req,res)=>{
 });
 
 // EXPORTS  ---------------------------------------------------------------------
-module.exports = routes; 
+export default routes; 

@@ -1,10 +1,8 @@
 // IMPORTS ---------------------------------------------------------------------
-const express = require('express');
-const routes = require('./routes');
+import express from 'express';
+import routes from './routes';
 
 // CONTENT ---------------------------------------------------------------------
-
-// define class app
 class App {
   // chamado automaticamente quando classe for instanciada
   constructor(){
@@ -26,6 +24,4 @@ class App {
 }
 
 // EXPORTS ---------------------------------------------------------------------
-
-// exporta instancia de servidor do app
-module.exports = new App().server; 
+export default new App().server; 
