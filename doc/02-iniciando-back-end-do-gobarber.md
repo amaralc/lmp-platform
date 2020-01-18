@@ -1,8 +1,8 @@
 # Iniciando back end do gobarber
 
-## Configurando estrutura
+## 00 Configurando estrutura
 
-Objetivo: estruturar pastas e arquivos basicos da aplicacao.
+  Objetivo: estruturar pastas e arquivos basicos da aplicacao.
 
   * (terminal) inicializa projeto: `yarn init -y` ;
   * (terminal) instala express: `yarn add express` ;
@@ -19,9 +19,9 @@ Objetivo: estruturar pastas e arquivos basicos da aplicacao.
   * define arquivo **routes.js** ;
   * (terminal) testa projeto: `node src/server.js` ;
 
-## Nodemon & Sucrase
+## 01 Nodemon & Sucrase
 
-Objetivo: utilizar sintaxe de 'import' e 'export'com *sucrase*, automatizar acionamento do servidor com *nodemon* e adapta debugger para rodar com sucrase;
+  Objetivo: utilizar sintaxe de 'import' e 'export'com *sucrase*, automatizar acionamento do servidor com *nodemon* e adapta debugger para rodar com sucrase;
 
   * (terminal) instala sucrase e nodemon como dependencia de desenvolvimento: `yarn add sucrase nodemon -D`;
   * altera sintaxe de import e export nos arquivos:
@@ -83,7 +83,7 @@ Objetivo: utilizar sintaxe de 'import' e 'export'com *sucrase*, automatizar acio
   * testa debugger com: `yarn dev:debug`
   * ATENCAO: mantenha pasta *.vscode* para manter configuracoes do debugger com *sucrase*
 
-## Conceitos do Docker
+## 02 Conceitos do Docker
 
   * Como funciona?
 
@@ -127,7 +127,7 @@ Objetivo: utilizar sintaxe de 'import' e 'export'com *sucrase*, automatizar acio
 
         ```
 
-## Configurando o Docker
+## 03 Configurando o Docker
 
   * Instala Docker CE
 
@@ -178,7 +178,7 @@ Objetivo: utilizar sintaxe de 'import' e 'export'com *sucrase*, automatizar acio
 
   * (terminal) Visualiza log de erros do container: `docker logs database`
 
-## Sequelize & MVC
+## 04 Sequelize & MVC
 
   * O que é Sequelize?
 
@@ -329,9 +329,11 @@ Objetivo: utilizar sintaxe de 'import' e 'export'com *sucrase*, automatizar acio
         delete(){}  // Remover usuario
       }
       ```
+
 ## 05 ESLint, Prettier & EditorConfig
 
-  * Objetivo: configurar ferramentas que irão ajudar a padronizar o código (manter padrão de escrita de código entre todos os desenvolvedores);
+  Objetivo: configurar ferramentas que irão ajudar a padronizar o código (manter padrão de escrita de código entre todos os desenvolvedores);
+
   * Usar padrão Airbnb;
   * (terminal) instalar eslint copmo dependencia de desenvolvimento: `yarn add eslint -D` ;
   * (terminal) inicializar eslint: `yarn eslint --init` ;
@@ -433,6 +435,97 @@ Objetivo: utilizar sintaxe de 'import' e 'export'com *sucrase*, automatizar acio
       trim_trailing_whitespace = true
       insert_final_newline = true
     ```
+
+## 06 Configurando Sequelize
+
+  Objetivo: configurar sequelize e o inicio da estrutura de pastas da aplicação
+
+  * Cria estrutura de pastas e arquivos:
+
+    * src/
+
+      * app/
+        * controllers/
+          * .gitkeep
+        * models/
+          * .gitkeep
+
+      * config/
+        * **database.js**
+
+      * database/
+        * migrations/
+          * .gitkeep
+
+  * (terminal) Instala dependencia 'sequelize': `yarn add sequelize`
+  * (terminal) Instala 'sequelize-cli' como dependencia de desenvolvimento: `yarn add sequelize-cli -D`
+    * sequelize-cli: interface de linha de comando para facilitar criacao de migrations, models, etc;
+  * Cria arquivo **.sequelizerc**:
+    * (arquivo que vai exportar caminho onde estao arquivos e pastas criados com sequelize);
+    * Ex.: exporta caminhos até as pastas de config de database, pasta de migrations, pasta de models, etc;
+    * Usa sintaxe do common JS e **nao utiliza sintaxe import/export**;
+  * Transforma arquivo para sintaxe de JavaScript (canto inferior direito no VS Code);
+  * Cria conteudo do arquivo **.sequelizerc**:
+
+    ```javascript
+    // IMPORTS
+    // padroniza caminhos no windows, linux e mac
+    const {resolve} = require('path');
+
+    // EXPORTS
+    // exporta objeto
+    module.exports = {
+
+      // caminho para arquivo de configuracao do database
+      config: resolve(__dirname, 'src', 'config', 'database.js'),
+
+      // caminho para pasta de models
+      'models-path': resolve(__dirname,'src', 'app', 'models'),
+
+      // caminho para pasta de migrations
+      'migrations-path': resolve(__dirname,'src','database','migrations'),
+
+      // caminho para pasta de seeds
+      'seeds-path': resolve(__dirname,'src','database','seeds')
+
+    };
+
+    ```
+
+    * (terminal) Adiciona dependencias 'pg' e 'pg-hstore': `yarn add pg pg-hstore` ;
+      * dependencias sao necessarias para usar 'sequelize' e 'sequelize-cli' com o dialeto 'postgres' ;
+      * para utilizacao com outros dialetos, [checar documentação](https://sequelize.org/master/manual/dialect-specific-things.html);
+
+    * Cria conteudo do arquivo de configuracao do banco de dados **src/config/database.js**:
+      * Arquivo tambem utiliza sintaxe do common JS;
+      * Sera acessado tanto pela aplicacao quanto pelo sequelize-cli;
+
+      ```javascript
+      // EXPORTS
+      // exporta objeto
+      module.exports = {
+
+        // define dados para conexao com banco de dados
+        dialect: 'postgres', // informa qual sera o dialeto utilizado
+        host: 'localhost', // informa o host onde se encontra a base de dados
+        username: 'postgres', // informa username para acesso
+        password: 'docker', // password para acesso
+        database: 'gostack-gobarber', // nome do banco de dados criado
+
+        // define funcinalidades extra
+        define: {
+          timestamps: true, // garante coluna 'created_at' e 'updated_at' em cada tabela do banco de dados
+          underscored: true, // padroniza nomenclatura de tabelas
+          underscoredAll: true, // padroniza nomenclatura de colunas com o padrao underscore '_'
+        }
+      }
+
+      ```
+
+
+
+
+
 
 
 
