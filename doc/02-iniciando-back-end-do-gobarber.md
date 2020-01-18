@@ -6,8 +6,8 @@ Objetivo: estruturar pastas e arquivos basicos da aplicacao.
 
   * (terminal) inicializa projeto: `yarn init -y` ;
   * (terminal) instala express: `yarn add express` ;
-  * cria estrutura: 
-  
+  * cria estrutura:
+
     src/
       app.js
       server.js
@@ -60,11 +60,11 @@ Objetivo: utilizar sintaxe de 'import' e 'export'com *sucrase*, automatizar acio
       "dev": "nodemon src/server.js",
       "dev:debug":"nodemon --inspect src/server.js"
     },
-    
+
     ```
 
   * cria nova configuracao na aba do bug do VSCode:
-    
+
     aba bug > add configuration... > node.js e altera **launch.json**:
 
     de: "request": "launch"
@@ -104,7 +104,7 @@ Objetivo: utilizar sintaxe de 'import' e 'export'com *sucrase*, automatizar acio
     * Docker Registry (Docker Hub): analogo ao npm do node, que contem os registros das dependencias em nuvem. O registro do docker é o docker register. Podemos até cadastrar nossas próprias imagens lá.
 
     * Dockerfile:
-      
+
       * Receita de uma imagem: define como nossa aplicacao pode rodar em um ambiente a partir do zero. Ex.:
 
 
@@ -146,7 +146,7 @@ Objetivo: utilizar sintaxe de 'import' e 'export'com *sucrase*, automatizar acio
       * Nome do container: --name database
       * Password do container: -e POSTGRES_PASSWORD=docker
       * Redirecionamento de porta da porta da maquina para a porta do container: -p 5432:5432
-      * (terminal) Comando: `docker run --name database -e POSTGRES_PASSWORD=docker -p 5432:5432` 
+      * (terminal) Comando: `docker run --name database -e POSTGRES_PASSWORD=docker -p 5432:5432`
 
       Obs: username padrao (postgres) nao precisa ser passado como parametro;
 
@@ -178,7 +178,7 @@ Objetivo: utilizar sintaxe de 'import' e 'export'com *sucrase*, automatizar acio
 
   * (terminal) Visualiza log de erros do container: `docker logs database`
 
-## Sequelize & MVC 
+## Sequelize & MVC
 
   * O que é Sequelize?
 
@@ -216,11 +216,11 @@ Objetivo: utilizar sintaxe de 'import' e 'export'com *sucrase*, automatizar acio
     ```sql
     INSERT INTO users(name,email)
       VALUES (
-        "Joao Silva",               
+        "Joao Silva",
         "joao@email.com.br"
       )
     ```
-    
+
     Outro exemplo:
 
     De:
@@ -234,13 +234,13 @@ Objetivo: utilizar sintaxe de 'import' e 'export'com *sucrase*, automatizar acio
 
     Para:
     ```sql
-    SELECT * 
+    SELECT *
     FROM users
-    WHERE email = 'joao@email.com.br' 
-    LIMIT 1 
+    WHERE email = 'joao@email.com.br'
+    LIMIT 1
     ```
 
-    
+
   * Migrations
 
     * Controle de versao para base de dados;
@@ -255,7 +255,7 @@ Objetivo: utilizar sintaxe de 'import' e 'export'com *sucrase*, automatizar acio
       up:(queryInterface,Sequelize)=>{
 
         // Instrucao para criar nova tabela
-        return queryInterface.createTable('users',{ 
+        return queryInterface.createTable('users',{
 
           // Criacao de 3 campos com suas propriedades.
           // O ID é a chave primária e auto incremental.
@@ -290,7 +290,7 @@ Objetivo: utilizar sintaxe de 'import' e 'export'com *sucrase*, automatizar acio
     * Depois que a migration foi enviada para outros desenvolvedores ou para ambiente de produção ela JAMAIS poderá ser alterada. Uma nova migration deverá ser criada se for necessário mudar ou criar campo, tabela ou coluna.
 
     * Cada migration deve realizar alterações em APENAS UMA tabela. Você pode criar várias migrations para alterações maiores;
-  
+
   * Seeds
 
     * Popula base de dados para desenvolvimento;
@@ -313,11 +313,11 @@ Objetivo: utilizar sintaxe de 'import' e 'export'com *sucrase*, automatizar acio
 
     * São classes;
     * Sempre retorna um JSON;
-    * Deve funcionar sozinho. Cada método controller não pode chamar outro método de outro controller nem dele mesmo. 
+    * Deve funcionar sozinho. Cada método controller não pode chamar outro método de outro controller nem dele mesmo.
     * Quando criar um novo controller:
       * Quando tivermos uma nova entidade na aplicação;
       * Deve conter apenas 5 métodos;
-      
+
       Exemplo:
 
       ```javascript
@@ -329,4 +329,111 @@ Objetivo: utilizar sintaxe de 'import' e 'export'com *sucrase*, automatizar acio
         delete(){}  // Remover usuario
       }
       ```
+## 05 ESLint, Prettier & EditorConfig
+
+  * Objetivo: configurar ferramentas que irão ajudar a padronizar o código (manter padrão de escrita de código entre todos os desenvolvedores);
+  * Usar padrão Airbnb;
+  * (terminal) instalar eslint copmo dependencia de desenvolvimento: `yarn add eslint -D` ;
+  * (terminal) inicializar eslint: `yarn eslint --init` ;
+  * Configura eslint:
+
+    * How would you like to use ESLint?
+      * To check syntax, find problems, and enforce code style;
+
+    * What type of modules does your project use?
+      * JavaScript modules (import/export);
+
+    * Which framework does your project use?
+      * None;
+
+    * Does your project use TypeScript?
+      * No;
+
+    * Where does your code run?
+      * Node;
+
+    * How would you like to define a style for your project?
+      * Use a popular style guide;
+
+    * Which style guide do you want to follow?
+      * Airbnb;
+
+    * What format do you want your config file to be in?
+      * JavaScript;
+
+    * Would you like to install them now with npm?
+      * Y;
+
+    Obs.: eslint faz instalacao das dependencias utilizando 'npm' ao inves de 'yarn'. Entao ele cria um arquivo **package-lock.json**;
+
+  * Deleta arquivo **package-lock.json**;
+  * (terminal) Mapeia novas dependencias no **yarn.lock**: `yarn` ;
+  * (extensao VS Code) Instala extensão **ESLint** no VSCode;
+  * Abre configurações do VSCode em formato de JSON: Ctrl + Shift + p > open settings (JSON);
+  * Insere atributo para forçar autofix:
+
+    ```javascript
+    // Aplica autofix do ESLint
+    "editor.codeActionsOnSave": {"source.fixAll.eslint": true},
+    "eslint.validate": ["javascript", "javascriptreact","typescriptreact"],
+    ```
+
+  * Altera end of line sequence para: LF
+  * Sobrescreve regras do eslint no arquivo **.eslintrc.js**:
+
+    ```javascript
+    rules: {
+
+          // torna desecessario usar 'this' nos metodos da classe
+      "class-method-use-this": "off",
+
+      // permite receber parametro e fazer alteracoes nesse parametro (usado pelo sequelize)
+      "no-param-reassign":"off",
+
+      // desabilita obrigatoriedade do camelcase notation (necessario para as conexoes do database)
+      "camelcase":"off",
+
+      // gera erro para variaveis nao utilizadas com excessao da variavel next dos middlewares
+      "no-unused-vars":["error",{"argsIgnorePattern":"next"}],
+    },
+
+    ```
+
+    * (terminal) Instala dependencias do prettier: `yarn add prettier eslint-config-prettier eslint-plugin-prettier -D` ;
+    * Altera propriedade 'extends' do arquivo **.eslintrc.js**:
+
+      ```javascript
+      extends: [
+        'airbnb-base',
+        'prettier'
+      ],
+      ```
+
+    * Cria propriedade 'plugins':
+
+    ```javascript
+    plugins: ['prettier'],
+    ```
+
+    * Cria arquivo **.prettierrc** e sobrescreve algumas regras para manter padrao Airbnb:
+
+    ```javascript
+    {
+      "singleQuote": true,
+      "trailingComma": "es5"
+    }
+    ```
+
+    * (terminal) Fixa arquivos em src automaticamente: `yarn eslint --fix src --ext .js` ;
+    * (extensao VS Code) Instala **Editor Config for VS Code** no VS Code;
+    * Vai na raiz do repositorio > botao direito > **generate .editorconfig**;
+    * Troca ultimas duas variaveis de 'false' para 'true':
+
+    ```
+      trim_trailing_whitespace = true
+      insert_final_newline = true
+    ```
+
+
+
 
