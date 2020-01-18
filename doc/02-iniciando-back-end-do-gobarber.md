@@ -178,8 +178,155 @@ Objetivo: utilizar sintaxe de 'import' e 'export'com *sucrase*, automatizar acio
 
   * (terminal) Visualiza log de erros do container: `docker logs database`
 
-   
+## Sequelize & MVC 
 
+  * O que é Sequelize?
 
+    * ORM para node.js para bancos de dados relacionais (sql);
+    * Mesma sintaxe funciona para mySQL, PostGreSQL, SQLite;
+    * Serve como tradutor de JS para query language;
 
-       
+  * O que é um ORM?
+
+    * ORM: Object-relational mapping;
+    * Uma forma de abstracao de banco de dados;
+      * Muda forma com que nossa aplicacao se comunica com o banco de dados;
+
+    * Considerando arquitetura MVC:
+      * Tabelas viram models. Ex.:
+
+      table users -> User.js
+      table companies -> Company.js
+      table projects -> Project.js
+
+  * Manipulacao de dados
+
+    * Nao usa INSERT nem UPDATE nem DELETE para manipulacao de dados, mas sim codigo JS.
+    * Sequelize traduz JS para SQL no dialeto especificado no arquivo de configuracao. Ex:
+
+    De:
+    ```javascript
+    User.create({
+      name: 'Joao da Silva',
+      email: 'joao@email.com.br',
+    })
+    ```
+
+    Para:
+    ```sql
+    INSERT INTO users(name,email)
+      VALUES (
+        "Joao Silva",               
+        "joao@email.com.br"
+      )
+    ```
+    
+    Outro exemplo:
+
+    De:
+    ```javascript
+    User.findOne({
+      where: {
+        email: 'joao@email.com.br'
+      }
+    })
+    ```
+
+    Para:
+    ```sql
+    SELECT * 
+    FROM users
+    WHERE email = 'joao@email.com.br' 
+    LIMIT 1 
+    ```
+
+    
+  * Migrations
+
+    * Controle de versao para base de dados;
+    * Cada arquivo de migration contem instrucoes para criacao, alteracao ou remocao de tabelas ou colunas;
+    * Mantem a base atualizada entre todos desenvolvedores do time e tambem no ambiente de producao;
+    * Cada arquivo é uma migration e sua ordenação ocorre por data;
+
+    Exemplo:
+
+    ```javascript
+    module.exports = {
+      up:(queryInterface,Sequelize)=>{
+
+        // Instrucao para criar nova tabela
+        return queryInterface.createTable('users',{ 
+
+          // Criacao de 3 campos com suas propriedades.
+          // O ID é a chave primária e auto incremental.
+          id:{
+            allowNull: false,
+            autoIncrement: true,
+            primaryKey: true,
+            type: Sequelize.INTEGER
+          },
+          name:{
+            allowNull: false,
+            type: Sequelize.STRING
+          },
+          email:{
+            allowNull:false,
+            unique: true,
+            type: Sequelize.STRING
+          }
+        })
+      },
+
+      down: (queryInterface,Sequelize)=>{
+
+        // Instrução para deletar a tabela caso haja um rollback
+        return queryInterface.dropTable('users')
+      }
+    }
+    ```
+
+    * É possível desfazer uma migração se errarmos algo enquanto estivermos desenvolvendo a feature;
+
+    * Depois que a migration foi enviada para outros desenvolvedores ou para ambiente de produção ela JAMAIS poderá ser alterada. Uma nova migration deverá ser criada se for necessário mudar ou criar campo, tabela ou coluna.
+
+    * Cada migration deve realizar alterações em APENAS UMA tabela. Você pode criar várias migrations para alterações maiores;
+  
+  * Seeds
+
+    * Popula base de dados para desenvolvimento;
+    * Muito utilizado para popular dados para testes;
+    * Executável apenas por código;
+    * Jamais será utilizado em produção;
+    * Caso sejam dados que precisam ir para produção, a própria migration pode manipular dados das tabela;
+
+  * Arquitetura MVC
+
+    * Forma de estruturar pastas e arquivos na aplicação para separar as responsabilidades de cada tipo de arquivo;
+
+    * **Model**: armazena a abstração do banco, utilizado para manipular os dados contidos nas tabelas do banco. Não possuem responsabilidade sobre a regra de negócio da nossa aplicação;
+
+    * **View**: A view é o retorno ao cliente. Em aplicações que não utilizam o modelo de API REST isso pode ser um HTML, mas no nosso caso a view é apenas nosso JSON que será retornado ao front-end e depois manipulado pelo ReactJS ou React Native.
+
+    * **Controller**: O controller é o ponto de entrada das requisições da nossa aplicação. Uma rota geralmente está associada diretamente com um método do controller. Podemos incluir a grande parte das *regras de negócio* da aplicação nos controllers (conforme a aplicação cresce podemos isolar as regras).
+
+  * A face de um controller
+
+    * São classes;
+    * Sempre retorna um JSON;
+    * Deve funcionar sozinho. Cada método controller não pode chamar outro método de outro controller nem dele mesmo. 
+    * Quando criar um novo controller:
+      * Quando tivermos uma nova entidade na aplicação;
+      * Deve conter apenas 5 métodos;
+      
+      Exemplo:
+
+      ```javascript
+      class UserController{
+        index(){}   // Listagem de usuarios
+        show(){}    // Exibir um unico usuario
+        store(){}   //  Cadastrar usuario
+        update(){}  // Alterar usuario
+        delete(){}  // Remover usuario
+      }
+      ```
+
