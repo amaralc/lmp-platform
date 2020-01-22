@@ -30,4 +30,4 @@ class User extends Model {
 }
 
 /* --------------------------------- EXPORTS ---------------------------------*/
-export default User();
+export default User;
