@@ -2,12 +2,12 @@
 
 ## Indice
 
-  [00 Configurando estrutura](#00-configurando-a-estrutura)
-  [01 Nodemon & Sucrase](#01-nodemon-&-sucrase)
-  [02 Conceitos do Docker](#02-conceitos-do-docker)
-  [03 Configurando o Docker](#03-configurando-o-docker)
-  [04 Sequelize & MVC](#04-sequelize-&-MVC)
-  [05 ESLint, Prettier & EditorConfig](05-eSLint-prettier-&-EditorConfig)
+  * [00 Configurando estrutura](#00-configurando-a-estrutura)
+  * [01 Nodemon & Sucrase](#01-nodemon--sucrase)
+  * [02 Conceitos do Docker](#02-conceitos-do-docker)
+  * [03 Configurando o Docker](#03-configurando-o-docker)
+  * [04 Sequelize & MVC](#04-sequelize-&-MVC)
+  * [05 ESLint, Prettier & EditorConfig](05-eslint-prettier--EditorConfig)
 
 ## 00 Configurando estrutura
 
