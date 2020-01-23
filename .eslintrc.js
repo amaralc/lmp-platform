@@ -22,7 +22,7 @@ module.exports = {
     "prettier/prettier":"error",
 
     // torna desecessario usar 'this' nos metodos da classe
-    "class-method-use-this": "off", 
+    "class-methods-use-this": "off", 
 
     // permite receber parametro e fazer alteracoes nesse parametro (usado pelo sequelize)
     "no-param-reassign":"off", 
