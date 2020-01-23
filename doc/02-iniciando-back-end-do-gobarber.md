@@ -872,3 +872,13 @@
 
 
 
+
+## 12 Conceitos de JWT
+
+  Objetivo: entender os conceitos de autenticação JWT.
+
+  * JWT: JSON Web Token;
+  * O que é: um método de fazer autenticação em API REST [Representational state transfer](https://en.wikipedia.org/wiki/Representational_state_transfer);
+
+  ![](img/02-12-conceitos-de-jwt.PNG)
+
