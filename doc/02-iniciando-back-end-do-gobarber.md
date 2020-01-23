@@ -1,6 +1,6 @@
 # Iniciando back end do gobarber
 
-## Índice
+## Indice
 
   * [00 Configurando estrutura](#00-configurando-a-estrutura)
   * [01 Nodemon & Sucrase](#01-nodemon--sucrase)
