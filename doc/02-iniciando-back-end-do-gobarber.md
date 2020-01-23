@@ -1,15 +1,23 @@
 # Iniciando back end do gobarber
 
-## Indice
+## Índice
 
   * [00 Configurando estrutura](#00-configurando-a-estrutura)
   * [01 Nodemon & Sucrase](#01-nodemon--sucrase)
   * [02 Conceitos do Docker](#02-conceitos-do-docker)
   * [03 Configurando o Docker](#03-configurando-o-docker)
   * [04 Sequelize & MVC](#04-sequelize-&-MVC)
-  * [05 ESLint, Prettier & EditorConfig](05-eslint-prettier--EditorConfig)
+  * [05 ESLint, Prettier & EditorConfig](#05-eslint-prettier--EditorConfig)
+  * [06 Configurando Sequelize](#06-configurando-sequelize)
+  * [07 Migration de usuario](#07-migration-de-usuario)
+  * [08 Model de usuario](#08-model-de-usuario)
+  * [09 Criando loader de models](#09-criando-loader-de-models)
+  * [10 Cadastro de usuarios](#10-cadastro-de-usuarios)
+  * [11 Gerando hash da senha](#11-gerando-hash-da-senha)
+  * [12 Conceitos de JWT](#12-conceitos-de-jwt)
 
 ## 00 Configurando estrutura
+[Voltar para índice](#indice)
 
   Objetivo: estruturar pastas e arquivos basicos da aplicacao.
 
@@ -29,6 +37,7 @@
   * (terminal) testa projeto: `node src/server.js` ;
 
 ## 01 Nodemon & Sucrase
+[Voltar para índice](#indice)
 
   Objetivo: utilizar sintaxe de 'import' e 'export'com *sucrase*, automatizar acionamento do servidor com *nodemon* e adapta debugger para rodar com sucrase;
 
@@ -93,6 +102,7 @@
   * ATENCAO: mantenha pasta *.vscode* para manter configuracoes do debugger com *sucrase*
 
 ## 02 Conceitos do Docker
+[Voltar para índice](#indice)
 
   * Como funciona?
 
@@ -137,6 +147,7 @@
         ```
 
 ## 03 Configurando o Docker
+[Voltar para índice](#indice)
 
   * Instala Docker CE
 
@@ -188,6 +199,7 @@
   * (terminal) Visualiza log de erros do container: `docker logs database`
 
 ## 04 Sequelize & MVC
+[Voltar para índice](#indice)
 
   * O que é Sequelize?
 
@@ -340,6 +352,7 @@
       ```
 
 ## 05 ESLint, Prettier & EditorConfig
+[Voltar para índice](#indice)
 
   Objetivo: configurar ferramentas que irão ajudar a padronizar o código (manter padrão de escrita de código entre todos os desenvolvedores);
 
@@ -446,6 +459,7 @@
     ```
 
 ## 06 Configurando Sequelize
+[Voltar para índice](#indice)
 
   Objetivo: configurar sequelize e o inicio da estrutura de pastas da aplicação
 
@@ -532,6 +546,7 @@
       ```
 
 ## 07 Migration de usuario
+[Voltar para índice](#indice)
 
   Objetivo: criacao da primeira migration (migration de usuario) utilizando sequelize-cli.
 
@@ -591,6 +606,7 @@
     * Desfazer todas as migrations: `yarn sequelize db:migration:undo:all` ;
 
 ## 08 Model de usuario
+[Voltar para índice](#indice)
 
   Objetivo: criar model de usuarios que sera utilizado para criar, deletar e alterar dados de usuarios.
 
@@ -636,6 +652,7 @@
     * Se quiser visualizar outras opcoes de dados que podem ser passados no metodo init digite: Ctrl + space
 
 ## 09 Criando loader de models
+[Voltar para índice](#indice)
 
   Objetivo: criar arquivo que faz conexao com banco de dados definido em **src/config/database.js** e carrega todos os models da aplicacao para toda a aplicacao conheca os models.
 
@@ -720,6 +737,7 @@
     ```
 
 ## 10 Cadastro de usuarios
+[Voltar para índice](#indice)
 
   Objetivo: criar feature de registro de usuarios na api.
 
@@ -815,6 +833,7 @@
       email ja esteja cadastrado;
 
 ## 11 Gerando hash da senha
+[Voltar para índice](#indice)
 
   Objetivo: gerar o hash da senha do usuario para armazenar no banco de dados.
   Story: usuario envia senha sem hash, hash da senha é gerado e armazenado.
@@ -883,6 +902,7 @@
 
 
 ## 12 Conceitos de JWT
+[Voltar para índice](#indice)
 
   Objetivo: entender os conceitos de autenticação JWT.
 
