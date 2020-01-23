@@ -710,12 +710,12 @@
     export default routes;
     ```
 
+## Cadastro de usuarios
 
+  Objetivo: criar feature de registro de usuarios na api.
 
+  * Cria arquivo **controllers/UserController.js**:
 
+  ```
 
-
-
-
-
-
+  ```
