@@ -710,12 +710,99 @@
     export default routes;
     ```
 
-## Cadastro de usuarios
+## 10 Cadastro de usuarios
 
   Objetivo: criar feature de registro de usuarios na api.
 
   * Cria arquivo **controllers/UserController.js**:
 
-  ```
+    ```js
+    /* --------------------------------- IMPORTS ---------------------------------*/
+    import User from '../models/User';
 
-  ```
+    /* --------------------------------- CONTENT ---------------------------------*/
+    class UserController {
+      /**
+      * Metodo store com mesma face de um middleware no node.
+      * Recebe dados do usuario e cria novo registro dentro da base de dados.
+      */
+      async store(req, res) {
+        /** Verifica se usuario do corpo da requisicao ja existe */
+        const userExists = await User.findOne({ where: { email: req.body.email } });
+
+        /** Se usuario ja existir, retorna erro */
+        if (userExists) {
+          return res.json({ error: 'User already exists!' });
+        }
+
+        /**
+        * Cria usuario na base de dados usando resposta asincrona e retorna apenas
+        * dados uteis.
+        */
+        const { id, name, email, provider } = await User.create(req.body);
+
+        /** Retorna json apenas com dados uteis ao frontend */
+        return res.json({
+          id,
+          name,
+          email,
+          provider,
+        });
+      }
+    }
+
+    /* --------------------------------- EXPORTS ---------------------------------*/
+    export default new UserController();
+
+    ```
+
+  * Modifica arquivo **routes.js**:
+    * Importa UserController;
+    * Deleta rota '/' get teste;
+    * Cria rota '/users' tipo post chamando metodo UserController.store;
+
+    ```js
+    /* --------------------------------- IMPORTS ---------------------------------*/
+    import { Router } from 'express';
+    import UserController from './app/controllers/UserController';
+
+    /* --------------------------------- CONTENT ---------------------------------*/
+    const routes = new Router();
+
+    /** Define rota post para criar novo usuario */
+    routes.post('/users', UserController.store);
+
+    /* --------------------------------- EXPORTS ---------------------------------*/
+    export default routes;
+    ```
+
+  * (insomnia) Cria variavel 'base_url' em 'no environments' > 'manage enviroments' > 'base environment":
+
+    ```js
+    {
+      "base_url":"http://localhost:3333"
+    }
+    ```
+  * (insomnia) Cria novo workspace com nome da aplicacao (ex.: gostack-gobarber);
+  * (insomnia) Cria pasta 'Users';
+  * (insomnia) Cria requisicao 'Create'
+    * Tipo: 'POST';
+    * Formato: 'JSON';
+    * Rota: base_url/users;
+    * Corpo:
+
+      ```js
+      {
+        "name": "name one",
+        "email": "email1@email.com",
+        "password_hash":"123456"
+      }
+      ```
+  * (terminal) Roda servidor: `yarn dev` ;
+  * (insomnia) Envia requisicao clicando em 'send';
+  * (insomnia) Verifica se resposta da requisicao esta de acordo com o codigo;
+    * Em caso de erro do tipo 'SequelizeUniqueConstraintError: Validation error',
+      verifique se o codigo esta verificando e bloqueando fluxo da requisicao caso
+      email ja esteja cadastrado;
+
+
