@@ -339,7 +339,7 @@
       }
       ```
 
-## 05 ESLint Prettier & EditorConfig
+## 05 ESLint, Prettier & EditorConfig
 
   Objetivo: configurar ferramentas que irão ajudar a padronizar o código (manter padrão de escrita de código entre todos os desenvolvedores);
 
