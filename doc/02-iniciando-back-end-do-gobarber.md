@@ -16,6 +16,7 @@
   * [11 Gerando hash da senha](#11-gerando-hash-da-senha)
   * [12 Conceitos de JWT](#12-conceitos-de-jwt)
   * [13 Autenticacao JWT](#13-autenticacao-jwt)
+  * [14 Middleware de autenticacao](#14-middleware-de-autenticacao)
 
 ## 00 Configurando estrutura
 [Voltar para índice](#indice)
@@ -931,6 +932,54 @@
   * Cria session controller no arquivo **controllers/SessionController.js**:
 
     ```js
+    /* --------------------------------- IMPORTS ---------------------------------*/
+    import jwt from 'jsonwebtoken';
+    import authConfig from '../../config/auth';
+    import User from '../models/User';
+
+    /* --------------------------------- CONTENT ---------------------------------*/
+    class SessionController {
+      async store(req, res) {
+        /** Salva email e senha recebidos no corpo da requisicao */
+        const { email, password } = req.body;
+
+        /** Encontra usuario que tem campo email = variavel email (short sintax) */
+        const user = await User.findOne({ where: { email } });
+
+        /** Se usuario nao existe retorna erro 401 (nao autorizado) */
+        if (!user) {
+          return res.status(401).json({ error: 'User not found' });
+        }
+
+        /** Se hash da senha nao bate com hash salvo no database */
+        if (!(await user.checkPassword(password))) {
+          return res.status(401).json({ error: 'Password does not match' });
+        }
+
+        /** Se email foi encontrado e senha estiver correta salva 'id' e 'name' */
+        const { id, name } = user;
+
+        return res.json({
+          /** Retorna dados do usuario para o cliente */
+          user: { id, name, email },
+          /** Retorna jwt token */
+          token: jwt.sign(
+            /** Envia payload */
+            {
+              id,
+            },
+            /** Envia string secreta aleatoria (ex.: gerada pelo md5online.org) */
+            authConfig.secret,
+            /** Envia data de expiracao obrigatoria do token (padrao: 7 dias) */
+            { expiresIn: authConfig.expiresIn }
+          ),
+        });
+      }
+    }
+
+    /* --------------------------------- EXPORTS ---------------------------------*/
+    export default new SessionController();
+
     ```
 
      P: por que criar session controller se ja temos user controller?
@@ -1057,3 +1106,4 @@
 
     * Response example:
     ![](img/02-13-autenticacao-jwt-response.PNG)
+
