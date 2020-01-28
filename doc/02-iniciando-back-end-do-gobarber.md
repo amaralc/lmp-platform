@@ -537,7 +537,7 @@
         host: 'localhost', // informa o host onde se encontra a base de dados
         username: 'postgres', // informa username para acesso
         password: 'docker', // password para acesso
-        database: 'gostack-gobarber', // nome do banco de dados criado
+        database: 'lmp-platform', // nome do banco de dados criado
 
         // define funcinalidades extra
         define: {
@@ -554,7 +554,7 @@
 
   Objetivo: criacao da primeira migration (migration de usuario) utilizando sequelize-cli.
 
-  * Cria migration 'create-users' usando sequelize-cli: `yarn sequelize migration:create --name=create-users` ;
+  * (terminal) Cria migration 'create-users' usando sequelize-cli: `yarn sequelize migration:create --name=create-users` ;
   * Atualiza arquivo de migration criado:
 
     ```js
@@ -1090,7 +1090,7 @@
     /* --------------------------------- EXPORTS ---------------------------------*/
     export default {
       /** String secreta aleatoria (ex.: gerada no md5online.org) */
-      secret: '5ed32cb43d6810f8b9271a6858613e94',
+      secret: 'e73f038641d3a448df9a9c80aaf7265a',
       /** Envia data de expiracao obrigatoria do token (padrao: 7 dias) */
       expiresIn: '7d',
     };
