@@ -1,4 +1,4 @@
-# Iniciando back end do gobarber
+# Iniciando backend do lmp-platform
 
 ## Indice
 
