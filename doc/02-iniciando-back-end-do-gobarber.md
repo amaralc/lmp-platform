@@ -1,24 +1,36 @@
-# Iniciando backend do lmp-platform
-
 ## Indice
 
-  * [00 Configurando estrutura](#00-configurando-a-estrutura)
-  * [01 Nodemon & Sucrase](#01-nodemon--sucrase)
-  * [02 Conceitos do Docker](#02-conceitos-do-docker)
-  * [03 Configurando o Docker](#03-configurando-o-docker)
-  * [04 Sequelize & MVC](#04-sequelize-&-MVC)
-  * [05 ESLint, Prettier & EditorConfig](#05-eslint-prettier--EditorConfig)
-  * [06 Configurando Sequelize](#06-configurando-sequelize)
-  * [07 Migration de usuario](#07-migration-de-usuario)
-  * [08 Model de usuario](#08-model-de-usuario)
-  * [09 Criando loader de models](#09-criando-loader-de-models)
-  * [10 Cadastro de usuarios](#10-cadastro-de-usuarios)
-  * [11 Gerando hash da senha](#11-gerando-hash-da-senha)
-  * [12 Conceitos de JWT](#12-conceitos-de-jwt)
-  * [13 Autenticacao JWT](#13-autenticacao-jwt)
-  * [14 Middleware de autenticacao](#14-middleware-de-autenticacao)
-  * [15 Update do usuario](#15-update-do-usuario)
-  * [16 Validando dados de entrada](#16-validando-dados-de-entrada)
+  * [Iniciando o backend do gobarber](#iniciando-o-backend-do-gobarber)
+    * [00 Configurando estrutura](#00-configurando-a-estrutura)
+    * [01 Nodemon & Sucrase](#01-nodemon--sucrase)
+    * [02 Conceitos do Docker](#02-conceitos-do-docker)
+    * [03 Configurando o Docker](#03-configurando-o-docker)
+    * [04 Sequelize & MVC](#04-sequelize-&-MVC)
+    * [05 ESLint, Prettier & EditorConfig](#05-eslint-prettier--EditorConfig)
+    * [06 Configurando Sequelize](#06-configurando-sequelize)
+    * [07 Migration de usuario](#07-migration-de-usuario)
+    * [08 Model de usuario](#08-model-de-usuario)
+    * [09 Criando loader de models](#09-criando-loader-de-models)
+    * [10 Cadastro de usuarios](#10-cadastro-de-usuarios)
+    * [11 Gerando hash da senha](#11-gerando-hash-da-senha)
+    * [12 Conceitos de JWT](#12-conceitos-de-jwt)
+    * [13 Autenticacao JWT](#13-autenticacao-jwt)
+    * [14 Middleware de autenticacao](#14-middleware-de-autenticacao)
+    * [15 Update do usuario](#15-update-do-usuario)
+    * [16 Validando dados de entrada](#16-validando-dados-de-entrada)
+
+  * [Continuando API do GoBarber](#continuando-api-do-gobarber)
+    * [Envio de arquivos](#envio-de-arquivos)
+      * [Configurando Multer](#configurando-multer)
+      * [Avatar do usuario](#avatar-do-usuario)
+    * [Funcionalidade de agendamentos](#funcionalidade-de-agendamentos)
+    * [Envio de notificacoes](#envio-de-notificacoes)
+    * [Cancelamento e envio de email](#cancelamento-e-envio-de-email)
+    * [Configuracoes avancadas](#configuracoes-avancadas)
+
+
+# 01 Iniciando back end do gobarber
+[Voltar para índice](#indice)
 
 ## 00 Configurando estrutura
 [Voltar para índice](#indice)
@@ -554,7 +566,7 @@
 
   Objetivo: criacao da primeira migration (migration de usuario) utilizando sequelize-cli.
 
-  * (terminal) Cria migration 'create-users' usando sequelize-cli: `yarn sequelize migration:create --name=create-users` ;
+  * Cria migration 'create-users' usando sequelize-cli: `yarn sequelize migration:create --name=create-users` ;
   * Atualiza arquivo de migration criado:
 
     ```js
@@ -1090,7 +1102,7 @@
     /* --------------------------------- EXPORTS ---------------------------------*/
     export default {
       /** String secreta aleatoria (ex.: gerada no md5online.org) */
-      secret: 'e73f038641d3a448df9a9c80aaf7265a',
+      secret: '5ed32cb43d6810f8b9271a6858613e94',
       /** Envia data de expiracao obrigatoria do token (padrao: 7 dias) */
       expiresIn: '7d',
     };
@@ -1655,9 +1667,139 @@
       * Requisicao com 'password' e 'confirmPassword' diferentes;
       * [...];
 
+# 02 Continuando API do GoBarber
+[Voltar para índice](#indice)
 
+## Envio de arquivos
+[Voltar para índice](#indice)
 
+### 00 Configurando Multer
+[Voltar para índice](#indice)
+[Video](https://skylab.rocketseat.com.br/node/continuando-api-do-go-barber/group/envio-de-arquivos/lesson/configurando-multer-2)
 
+  Objtivo: criar funcionalidade de upload da aplicacao para que usuario que for prestador de servico tenha um avatar dentro da aplicacao (foto).
 
+    Obs: Existem varias formas de tratar upload de arquivos dentro da aplicação.
+      * Forma 1: enviar enviar imagem junto com outros dados durante o cadastro do usuário em uma única requisição;
+      * Forma 2: upload de arquivos, isolado do restante. Imagem enviada ao servidor para um banco de dados e servidor retorna um ID da imagem. Quando preenchemos o restante do cadastro, enviamos apenas o ID em uma segunda requisicao. Assim mantemos a estrutura de JSON para enviar os dados visto que JSON não suporta envio de arquivos.
 
+  * (terminal) Instala biblioteca 'multer' para lidar com 'multipart/form-data': `yarn add multer` ;
 
+    Obs: Quando precisamos lidar com arquivos nas nossas requisicoes de chamadas ao servidor, precisamos enviar essas requisicoes em um formato chamado 'multipart/form-data' (único formato que suporta envio de arquivos físicos). Para lidar com esse tipo de requisição iremos lidar com a biblioteca 'Multer'.
+
+  * Cria pasta 'tmp' na raiz do projeto, fora da pasta 'src';
+  * Cria pasta 'uploads' dentro da pasta 'tmp';
+  * Cria arquivo **src/config/multer.js** (configuracao da funcao de upload de arquivos):
+
+    ```js
+    /* --------------------------------- IMPORTS ---------------------------------*/
+    import multer from 'multer';
+    import crypto from 'crypto';
+    import { extname, resolve } from 'path';
+
+    /* --------------------------------- CONTENT ---------------------------------*/
+    /* --------------------------------- EXPORTS ---------------------------------*/
+    export default {
+      /**
+      * Como multer vai guardar nossos arquivos de imagem.
+      * Obs.: existem varias formas de armazenar, como em CDNs (Content Delivery
+      * Networks) tipo a Amazon s3 e digital ocean spaces). No nosso caso iremos
+      * guardar as imagens dentro dos arquivos da aplicacao, na pasta 'tmp' usando
+      * o multer.diskStorage ;
+      */
+      storage: multer.diskStorage({
+        /** Destino do arquivo que esta sendo enviado para a aplicacao */
+        destination: resolve(__dirname, '..', '..', 'tmp', 'uploads'),
+
+        /**
+        * Controle da formatacao do nome do arquivo enviado pelo usuario.
+        * Evita que usuarios enviem caracteres estranhos ou com nomes de arquivos duplicados.
+        */
+        filename: (req, file, cb) => {
+          /** Configura numero de bytes aleatorios */
+          crypto.randomBytes(16, (err, res) => {
+            /** Se houber erro, retorna callback com erro */
+            if (err) return cb(err);
+
+            /**
+            * Se nao houver erro, envia primeiro argumento como nulo e retorna
+            * string com random bytes concatenada com a extensao do arquivo;
+            */
+            return cb(null, res.toString('hex') + extname(file.originalname));
+          });
+        },
+      }),
+    };
+
+    ```
+
+  * Edita arquivo de rotas inserindo multer, multerConfig e outros:
+
+    ```js
+    /* --------------------------------- IMPORTS ---------------------------------*/
+    import { Router } from 'express';
+    import multer from 'multer';
+    import multerConfig from './config/multer';
+    import UserController from './app/controllers/UserController';
+    import SessionController from './app/controllers/SessionController';
+    import authMiddleware from './app/middlewares/auth';
+
+    /* --------------------------------- CONTENT ---------------------------------*/
+    /** Instancia novo roteador Router do express */
+    const routes = new Router();
+    /** Variavel de configuracao do upload usando multer */
+    const upload = multer(multerConfig);
+
+    /** Define rota PUT para criar novo usuario */
+    routes.post('/users', UserController.store);
+    /** Define rota POST para criar nova session */
+    routes.post('/sessions', SessionController.store);
+
+    /** Define MIDDLEWARE GLOBAL que vale para rotas que vem apos sua declaracao */
+    routes.use(authMiddleware);
+    /** Define rota PUT para editar dados do usuario */
+    routes.put('/users', UserController.update);
+    /**
+    * Define rota POST para upload de arquivos (com middleware e controller local, sem arquivo separado)
+    * Middleware chama variavel upload, metodo 'single' para fazer upload de um arquivo por vez */
+    routes.post('/files', upload.single('file'), (req, res) => {
+      return res.json({ ok: true });
+    });
+
+    /* --------------------------------- EXPORTS ---------------------------------*/
+    export default routes;
+
+    ```
+
+  * (insomnia):
+    * Cria pasta 'Files';
+    * Cria nova requisicao 'Create', tipo 'POST' para 'base_url/files';
+    * Altera 'Body' para 'Multipart Form';
+      * Substitui 'new name' por 'file' (o mesmo valor definido em *upload.single* em **routes.js**);
+      * Substitui 'value' pela opcao 'file';
+    * Seleciona arquivo que deseja enviar;
+    * Em 'environment' cria nova variavel token e salva token:
+      Ex.:
+
+        ```js
+        {
+          "base_url":"http://localhost:3333",
+          "token":"blablabla.blablabla.blablabla" // cloque aqui o token gerado durante login do usuario
+        }
+        ```
+    * Em 'Auth' seleciona a opcao 'Bearer' e adiciona o token enviado durante login do usuario (salvo na variavel do base environment);
+      * Opcao de envio de arquivo estara disponivel apenas na rota de edicao quando usuario for
+        editar seu perfil, quando for prestador de servico, na versao web da aplicacao;
+
+  * (terminal) roda servidor: `yarn dev` ;
+
+  * (insomnia) envia requisicao tipo POST para rota base_url/files
+
+## Funcionalidade de agendamentos
+[Voltar para índice](#indice)
+## Envio de notificacoes
+[Voltar para índice](#indice)
+## Cancelamento e envio de email
+[Voltar para índice](#indice)
+## Configuracoes avancadas
+[Voltar para índice](#indice)
