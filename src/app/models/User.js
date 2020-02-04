@@ -55,6 +55,14 @@ class User extends Model {
     return this;
   }
 
+  /** Método que salva referencia de 'id' de arquivo dentro da tabela de usuario  */
+  static associate(models) {
+    /** Coluna 'avatar_id' pertence a 'models.File' */
+    this.belongsTo(models.File, {
+      foreignKey: 'avatar_id',
+    });
+  }
+
   /** Recebe senha enviada pelo cliente */
   checkPassword(password) {
     /**
