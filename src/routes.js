@@ -2,9 +2,10 @@
 import { Router } from 'express';
 import multer from 'multer';
 import multerConfig from './config/multer';
+import authMiddleware from './app/middlewares/auth';
 import UserController from './app/controllers/UserController';
 import SessionController from './app/controllers/SessionController';
-import authMiddleware from './app/middlewares/auth';
+import FileController from './app/controllers/FileController';
 
 /* --------------------------------- CONTENT ---------------------------------*/
 /** Instancia novo roteador Router do express */
@@ -22,12 +23,11 @@ routes.use(authMiddleware);
 /** Define rota PUT para editar dados do usuario */
 routes.put('/users', UserController.update);
 /**
- * Define rota POST para upload de arquivos (com middleware e controller local, sem arquivo separado)
- * Middleware chama variavel upload, metodo 'single' para fazer upload de um arquivo por vez
+ * Define rota POST para upload de arquivos (com middleware local)
+ * Middleware chama variavel upload, metodo 'single' para fazer upload de
+ * um arquivo por vez
  */
-routes.post('/files', upload.single('file'), (req, res) => {
-  return res.json({ ok: true });
-});
+routes.post('/files', upload.single('file'), FileController.store);
 
 /* --------------------------------- EXPORTS ---------------------------------*/
 export default routes;
