@@ -26,8 +26,11 @@ class Database {
      */
     this.connection = new Sequelize(databaseConfig);
 
-    /* Acessa o metodo init de cada model da aplicacao passando a conexao */
-    models.map(model => model.init(this.connection));
+    models
+      /* Acessa o metodo init de cada model da aplicacao passando a conexao */
+      .map(model => model.init(this.connection))
+      /** Se 'model.associate' existir (condição &&) chama metodo passando models */
+      .map(model => model.associate && model.associate(this.connection.models));
   }
 }
 
