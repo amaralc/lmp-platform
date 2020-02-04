@@ -1,4 +1,6 @@
+/* --------------------------------- EXPORTS ---------------------------------*/
 module.exports = {
+  /* Altering commands */
   up: (queryInterface, Sequelize) => {
     return queryInterface.createTable('rooms', {
       id: {
@@ -7,22 +9,27 @@ module.exports = {
         autoIncrement: true,
         primaryKey: true,
       },
-      name: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
+      /* Atribui o numero da sala. e.g.: "101" */
       number: {
         type: Sequelize.INTEGER,
         allowNull: false,
       },
+      /* Atribui o nome da sala. e.g.: "MEV" */
+      name: {
+        type: Sequelize.STRING,
+        allowNull: false,
+      },
+      /* Atribui a qual laboratorio pertence a sala. Referencia o banco de dados de laboratorios */
       lab: {
         type: Sequelize.INTEGER,
         allowNull: false,
       },
+      /* Atribui o andar da sala. Referencia o banco de dados de laboratorios */
       floor: {
         type: Sequelize.INTEGER,
         allowNull: false,
       },
+      /* Atribui quais containers pertencem a sala. Referencia a tabela de containers */
       containers: {
         type: Sequelize.INTEGER,
         allowNull: false,
@@ -37,7 +44,7 @@ module.exports = {
       },
     });
   },
-
+  /* Reverting commands */
   down: queryInterface => {
     return queryInterface.dropTable('rooms');
   },
