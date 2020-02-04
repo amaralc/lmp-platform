@@ -11,8 +11,16 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      place: {
-        type: Sequelize.STRING,
+      number: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+      },
+      lab: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+      },
+      floor: {
+        type: Sequelize.INTEGER,
         allowNull: false,
       },
       containers: {
