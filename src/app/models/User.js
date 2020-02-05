@@ -19,11 +19,13 @@ class User extends Model {
      */
     super.init(
       {
-        name: Sequelize.STRING,
-        email: Sequelize.STRING,
-        password: Sequelize.VIRTUAL, // Campo sem correspondencia no database
-        password_hash: Sequelize.STRING,
-        provider: Sequelize.BOOLEAN,
+        id: Sequelize.STRING,
+        tool: Sequelize.STRING,
+        fit_type: Sequelize.STRING,
+        milling_cutter_type: Sequelize.STRING,
+        external_diameter: Sequelize.DOUBLE,
+        thickness: Sequelize.DOUBLE,
+        internal_diameter: Sequelize.DOUBLE,
       },
       {
         /*
