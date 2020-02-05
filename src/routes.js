@@ -7,7 +7,6 @@ import UserController from './app/controllers/UserController';
 import SessionController from './app/controllers/SessionController';
 import FileController from './app/controllers/FileController';
 import ContainerController from './app/controllers/ContainerController';
-import authMiddleware from './app/middlewares/auth';
 
 /* --------------------------------- CONTENT ---------------------------------*/
 /** Instancia novo roteador Router do express */
