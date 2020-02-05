@@ -29,6 +29,6 @@ module.exports = {
 
   down: queryInterface => {
     /** No método 'down' remove coluna 'avatar_id' da tabela 'users' */
-    queryInterface.removeColumn('users', 'avatar_id');
+    return queryInterface.removeColumn('users', 'avatar_id');
   },
 };
