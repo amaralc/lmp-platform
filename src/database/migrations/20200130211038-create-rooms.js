@@ -15,17 +15,12 @@ module.exports = {
         allowNull: false,
       },
       /* Atribui o nome da sala. e.g.: "MEV" */
-      name: {
+      description: {
         type: Sequelize.STRING,
         allowNull: false,
       },
       /* Atribui a qual laboratorio pertence a sala. Referencia o banco de dados de laboratorios */
       lab: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-      },
-      /* Atribui o andar da sala. Referencia o banco de dados de laboratorios */
-      floor: {
         type: Sequelize.INTEGER,
         allowNull: false,
       },
