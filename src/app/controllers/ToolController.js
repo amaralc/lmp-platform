@@ -18,9 +18,9 @@ class ToolController {
       tool,
       fit_type,
       milling_cutter_type,
-      external_type,
+      external_diameter,
       thickness,
-      internal_type,
+      internal_diameter,
     } = await Tool.create(req.body);
     /** Retorna json apenas com dados uteis ao frontend */
     return res.json({
@@ -28,9 +28,9 @@ class ToolController {
       tool,
       fit_type,
       milling_cutter_type,
-      external_type,
+      external_diameter,
       thickness,
-      internal_type,
+      internal_diameter,
     });
   }
 }
