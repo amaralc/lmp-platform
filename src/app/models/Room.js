@@ -32,4 +32,4 @@ class Room extends Model {
 }
 
 /* --------------------------------- EXPORTS ---------------------------------*/
-export default Room();
+export default Room;
