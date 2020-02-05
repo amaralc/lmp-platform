@@ -2,6 +2,7 @@
 import { Router } from 'express';
 import UserController from './app/controllers/UserController';
 import SessionController from './app/controllers/SessionController';
+import ContainerController from './app/controllers/ContainerController';
 import authMiddleware from './app/middlewares/auth';
 
 /* --------------------------------- CONTENT ---------------------------------*/
@@ -16,6 +17,8 @@ routes.post('/sessions', SessionController.store);
 routes.use(authMiddleware);
 /** Define rota PUT para editar dados do usuario */
 routes.put('/users', UserController.update);
+/** Define rota POST para criar novo container */
+routes.post('/containers', ContainerController.store);
 
 /* --------------------------------- EXPORTS ---------------------------------*/
 export default routes;
