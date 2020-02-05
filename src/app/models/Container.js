@@ -3,7 +3,7 @@ import Sequelize, { Model } from 'sequelize';
 
 /* --------------------------------- CONTENT ---------------------------------*/
 /**
- * Cria classe Container extendendo os metodos da classe Model, da dependencia
+ * Cria classe User extendendo os metodos da classe Model, da dependencia
  * 'sequelize'
  */
 class Container extends Model {
@@ -20,12 +20,21 @@ class Container extends Model {
       {
         /** Descrição breve do container */
         description: Sequelize.STRING,
-        /** ID da sala onde o container se encontra */
+        /** Número de identificação na etiqueta do container */
+        number: Sequelize.STRING,
+        /** ID (primary key) da sala onde o container se encontra */
         room_id: Sequelize.INTEGER,
+        /** ID (primary key) do usuario que registrou o container */
+        created_by: Sequelize.INTEGER,
+        /**
+         * ID (primary key) do usuario que fez a ultima atualizacao dos dados
+         * do container.
+         */
+        updated_by: Sequelize.INTEGER,
       },
       {
         /*
-         ** Argumento que será enviado pelo loader de models
+         ** Argumento que sera enviado pelo loader de models
          */
         sequelize,
       }
