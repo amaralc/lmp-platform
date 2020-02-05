@@ -8,11 +8,11 @@ module.exports = {
         autoIncrement: true,
         primaryKey: true,
       },
-      name: {
+      description: {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      room: {
+      room_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
         unique: true,
