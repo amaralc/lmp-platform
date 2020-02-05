@@ -2,12 +2,13 @@
 import Sequelize from 'sequelize';
 import databaseConfig from '../config/database';
 import User from '../app/models/User';
+import Container from '../app/models/Container';
 import File from '../app/models/File';
 
 /* --------------------------------- CONTENT ---------------------------------*/
 
 /* Cria array com todos os models da aplicacao */
-const models = [User, File];
+const models = [User, File, Container];
 
 /*
  ** Cria classe Database
