@@ -37,8 +37,6 @@ routes.put('/users', UserController.update);
 routes.post('/files', upload.single('file'), FileController.store);
 /** Define rota POST para criar novo container */
 routes.post('/containers', ContainerController.store);
-/** Define rota PUT para editar dados da sala */
-routes.put('/rooms', RoomController.update);
 
 /* --------------------------------- EXPORTS ---------------------------------*/
 export default routes;
