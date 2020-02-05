@@ -7,13 +7,16 @@ import authMiddleware from './app/middlewares/auth';
 /* --------------------------------- CONTENT ---------------------------------*/
 const routes = new Router();
 
-/** Define rota PUT para criar novo usuario */
+/** Define rota POST para criar novo usuario */
 routes.post('/users', UserController.store);
 /** Define rota POST para criar nova session */
 routes.post('/sessions', SessionController.store);
-
 /** Define MIDDLEWARE GLOBAL que vale para rotas que vem apos sua declaracao */
 routes.use(authMiddleware);
+/** Define rota POST para criar nova ferramenta */
+routes.post('/tools', (req, res) => {
+  return res.json({ ok: true });
+});
 /** Define rota PUT para editar dados do usuario */
 routes.put('/users', UserController.update);
 
