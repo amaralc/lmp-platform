@@ -20,7 +20,6 @@ class Room extends Model {
         number: Sequelize.STRING,
         description: Sequelize.STRING,
         lab: Sequelize.INTEGER,
-        containers: Sequelize.INTEGER,
       },
       {
         /*
