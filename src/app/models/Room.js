@@ -3,7 +3,7 @@ import Sequelize, { Model } from 'sequelize';
 
 /* --------------------------------- CONTENT ---------------------------------*/
 /*
- ** Cria classe User extendendo os metodos da classe Model, da dependencia
+ ** Cria classe Room extendendo os metodos da classe Model, da dependencia
  ** 'sequelize'
  */
 class Room extends Model {
