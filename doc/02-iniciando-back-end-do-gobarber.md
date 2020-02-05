@@ -182,7 +182,7 @@
       * Nome do container: --name database
       * Password do container: -e POSTGRES_PASSWORD=docker
       * Redirecionamento de porta da porta da maquina para a porta do container: -p 5432:5432
-      * (terminal) Comando: `docker run --name database -e POSTGRES_PASSWORD=docker -p 5432:5432`
+      * (terminal) Comando: `docker run --name database -e POSTGRES_PASSWORD=docker -p 5432:5432 -d postgres`
 
       Obs: username padrao (postgres) nao precisa ser passado como parametro;
 
