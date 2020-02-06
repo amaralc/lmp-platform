@@ -27,6 +27,8 @@ routes.post('/sessions', SessionController.store);
 routes.use(authMiddleware);
 /** Define rota PUT para editar dados do usuario */
 routes.put('/users', UserController.update);
+/** Define rota PUT para editar dados da ferramenta */
+routes.put('/tools', ToolController.update);
 /**
  * Define rota POST para upload de arquivos (com middleware local)
  * Middleware chama variavel upload, metodo 'single' para fazer upload de

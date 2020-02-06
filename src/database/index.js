@@ -34,6 +34,7 @@ class Database {
         model.init(this.connection);
         return model;
       })
+
       /** Se 'model.associate' existir (condição &&) chama metodo passando models */
       .map(model => model.associate && model.associate(this.connection.models));
   }
