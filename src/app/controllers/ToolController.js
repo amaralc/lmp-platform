@@ -22,6 +22,12 @@ class ToolController {
       fit_type: Yup.string().required(),
       /** Attribute 'milling_cutter_type' is a required string */
       milling_cutter_type: Yup.string().required(),
+      /** Attribute 'external_diameter' is a required number */
+      external_diameter: Yup.number().required(),
+      /** Attribute 'thickness' is a required number */
+      thickness: Yup.number().required(),
+      /** Attribute 'internal_diameter' is a required number */
+      internal_diameter: Yup.number().required(),
     });
     /** If 'req.body' do not attend to the schema requirements (is not valid) */
     if (!(await schema.isValid(req.body))) {
