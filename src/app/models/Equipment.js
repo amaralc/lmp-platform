@@ -1,12 +1,12 @@
 /* --------------------------------- IMPORTS ---------------------------------*/
 import Sequelize, { Model } from 'sequelize';
 /* --------------------------------- CONTENT ---------------------------------*/
-class Machine extends Model {
+class Equipment extends Model {
   static init(sequelize) {
     super.init(
       {
         category: Sequelize.STRING,
-        equipment: Sequelize.STRING,
+        equipment_name: Sequelize.STRING,
         company: Sequelize.STRING,
         model: Sequelize.STRING,
         ufsc_patrimony: Sequelize.INTEGER,
@@ -25,4 +25,4 @@ class Machine extends Model {
   }
 }
 /* --------------------------------- EXPORTS ---------------------------------*/
-export default Machine;
+export default Equipment;
