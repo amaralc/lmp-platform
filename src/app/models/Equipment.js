@@ -6,7 +6,7 @@ class Equipment extends Model {
     super.init(
       {
         category: Sequelize.STRING,
-        equipament: Sequelize.STRING,
+        equipment_name: Sequelize.STRING,
         company: Sequelize.STRING,
         model: Sequelize.STRING,
         ufsc_patrimony: Sequelize.INTEGER,
