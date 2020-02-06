@@ -40,7 +40,7 @@ routes.post('/containers', ContainerController.store);
 /** Define rota POST para criar nova ferramenta */
 routes.post('/tools', ToolController.store);
 /** Define rota POST para criar novo equipamento */
-routes.post('/equipments', EquipmentController.store);
+routes.post('/equipment', EquipmentController.store);
 
 /* --------------------------------- EXPORTS ---------------------------------*/
 export default routes;
