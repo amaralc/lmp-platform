@@ -18,7 +18,7 @@ class Tool extends Model {
      */
     super.init(
       {
-        tool: Sequelize.STRING,
+        tool_name: Sequelize.STRING,
         fit_type: Sequelize.STRING,
         milling_cutter_type: Sequelize.STRING,
         external_diameter: Sequelize.DOUBLE,
