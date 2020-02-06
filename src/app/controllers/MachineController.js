@@ -1,28 +1,28 @@
 /* --------------------------------- IMPORTS ---------------------------------*/
-import Equipment from '../models/Equipment';
+import Machine from '../models/Machine';
 /* --------------------------------- CONTENT ---------------------------------*/
-class EquipmentController {
+class MachineController {
   async store(req, res) {
-    const equipmentExists = await Equipment.findOne({
+    const equipmentExists = await Machine.findOne({
       where: { ufsc_patrimony: req.body.ufsc_patrimony },
     });
 
     if (equipmentExists) {
-      return res.status(400).json({ error: 'Equipment already exists.' });
+      return res.status(400).json({ error: 'Machine already exists.' });
     }
 
-    const equipmentExists2 = await Equipment.findOne({
+    const equipmentExists2 = await Machine.findOne({
       where: { feesc_patrimony: req.body.feesc_patrimony },
     });
 
     if (equipmentExists2) {
-      return res.status(400).json({ error: 'Equipment already exists.' });
+      return res.status(400).json({ error: 'Machine already exists.' });
     }
 
-    const equipment = await Equipment.create(req.body);
+    const equipment = await Machine.create(req.body);
 
     return res.json(equipment);
   }
 }
 /* --------------------------------- EXPORTS ---------------------------------*/
-export default new EquipmentController();
+export default new MachineController();
