@@ -11,11 +11,11 @@ import FileController from './app/controllers/FileController';
 import RoomController from './app/controllers/RoomController';
 import ContainerController from './app/controllers/ContainerController';
 import ToolController from './app/controllers/ToolController';
+import EquipmentController from './app/controllers/EquipmentController';
 
 /* --------------------------------- CONTENT ---------------------------------*/
 /** Instancia novo roteador Router do express */
 const routes = new Router();
-/** Variavel de configuracao do upload usando multer */
 const upload = multer(multerConfig);
 
 /** Define rota POST para criar novo usuario */
@@ -41,6 +41,8 @@ routes.post('/rooms', RoomController.store);
 routes.post('/containers', ContainerController.store);
 /** Define rota POST para criar nova ferramenta */
 routes.post('/tools', ToolController.store);
+/** Define rota POST para criar novo equipamento */
+routes.post('/equipment', EquipmentController.store);
 
 /* --------------------------------- EXPORTS ---------------------------------*/
 export default routes;
