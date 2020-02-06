@@ -30,7 +30,11 @@ class Database {
 
     models
       /* Acessa o metodo init de cada model da aplicacao passando a conexao */
-      .map(model => model.init(this.connection))
+      .map(model => {
+        model.init(this.connection);
+        return model;
+      })
+
       /** Se 'model.associate' existir (condição &&) chama metodo passando models */
       .map(model => model.associate && model.associate(this.connection.models));
   }
