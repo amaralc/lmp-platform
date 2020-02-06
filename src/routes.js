@@ -1,8 +1,10 @@
 /* --------------------------------- IMPORTS ---------------------------------*/
 import { Router } from 'express';
-import multer from 'multer';
-import multerConfig from './config/multer';
-import authMiddleware from './app/middlewares/auth';
+// import multer from 'multer';
+// import multerConfig from './config/multer';
+// import authMiddleware from './app/middlewares/auth';
+
+import Equipment from './app/models/Equipment';
 
 /** Controllers */
 import UserController from './app/controllers/UserController';
@@ -16,33 +18,47 @@ import EquipmentController from './app/controllers/EquipmentController';
 /* --------------------------------- CONTENT ---------------------------------*/
 /** Instancia novo roteador Router do express */
 const routes = new Router();
+
+routes.get('/', async (req, res) => {
+  const equipment = await Equipment.create({
+    category: 'Máquina-ferramenta',
+    equipment: 'Torno CNC',
+    company: 'Heyligenstaedt',
+    model: 'Heynumat',
+    color: 'Verde',
+    state: 'Funcionando',
+    room_id: '1',
+  });
+
+  return res.json(equipment);
+});
 /** Variavel de configuracao do upload usando multer */
-const upload = multer(multerConfig);
+// const upload = multer(multerConfig);
 
 /** Define rota POST para criar novo usuario */
-routes.post('/users', UserController.store);
+// routes.post('/users', UserController.store);
 /** Define rota POST para criar nova session */
-routes.post('/sessions', SessionController.store);
+// routes.post('/sessions', SessionController.store);
 
 /** Define rota POST para criar novo equipamento */
 routes.post('/equipments', EquipmentController.store);
 
 /** Define MIDDLEWARE GLOBAL que vale para rotas que vem apos sua declaracao */
-routes.use(authMiddleware);
+// routes.use(authMiddleware);
 /** Define rota PUT para editar dados do usuario */
-routes.put('/users', UserController.update);
+// routes.put('/users', UserController.update);
 /**
  * Define rota POST para upload de arquivos (com middleware local)
  * Middleware chama variavel upload, metodo 'single' para fazer upload de
  * um arquivo por vez
  */
-routes.post('/files', upload.single('file'), FileController.store);
+// routes.post('/files', upload.single('file'), FileController.store);
 /** Define rota POST para criar nova sala */
-routes.post('/rooms', RoomController.store);
+// routes.post('/rooms', RoomController.store);
 /** Define rota POST para criar novo container */
-routes.post('/containers', ContainerController.store);
+// routes.post('/containers', ContainerController.store);
 /** Define rota POST para criar nova ferramenta */
-routes.post('/tools', ToolController.store);
+// routes.post('/tools', ToolController.store);
 
 /* --------------------------------- EXPORTS ---------------------------------*/
 export default routes;
