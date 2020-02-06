@@ -14,7 +14,7 @@ module.exports = {
         allowNull: false,
       },
       // Nome do equipamento (Torno, Torno CNC, Fresadora)
-      equipament: {
+      equipment: {
         type: Sequelize.STRING,
         allowNull: false,
       },
