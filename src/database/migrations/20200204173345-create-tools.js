@@ -9,7 +9,7 @@ module.exports = {
         primaryKey: true,
       },
       /** Name of the tool */
-      tool: {
+      tool_name: {
         type: Sequelize.STRING,
         allowNull: false,
       },
