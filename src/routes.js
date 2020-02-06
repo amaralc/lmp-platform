@@ -11,6 +11,7 @@ import FileController from './app/controllers/FileController';
 import RoomController from './app/controllers/RoomController';
 import ContainerController from './app/controllers/ContainerController';
 import ToolController from './app/controllers/ToolController';
+import EquipmentController from './app/controllers/EquipmentController';
 
 /* --------------------------------- CONTENT ---------------------------------*/
 /** Instancia novo roteador Router do express */
@@ -22,6 +23,9 @@ const upload = multer(multerConfig);
 routes.post('/users', UserController.store);
 /** Define rota POST para criar nova session */
 routes.post('/sessions', SessionController.store);
+
+/** Define rota POST para criar novo equipamento */
+routes.post('/equipments', EquipmentController.store);
 
 /** Define MIDDLEWARE GLOBAL que vale para rotas que vem apos sua declaracao */
 routes.use(authMiddleware);
