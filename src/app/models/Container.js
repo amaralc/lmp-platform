@@ -43,6 +43,14 @@ class Container extends Model {
     /** Retorna model que acaba de ser inicializado */
     return this;
   }
+
+  /** Método que salva referencia de 'id' de arquivo dentro da tabela de usuario  */
+  static associate(models) {
+    /** Coluna 'room_id' pertence a 'models.Room' */
+    this.belongsTo(models.Room, {
+      foreignKey: 'room_id',
+    });
+  }
 }
 
 /* --------------------------------- EXPORTS ---------------------------------*/
