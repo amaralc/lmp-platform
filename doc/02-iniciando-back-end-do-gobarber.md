@@ -212,7 +212,9 @@
 
   * (terminal) Confere se container esta rodando: `docker ps` ;
 
-  * (terminal) Visualiza log de erros do container: `docker logs database`
+  * (terminal) Visualiza log de erros do container: `docker logs database` ;
+
+  * Para remover um container, primeiro interrompa a conexão executando o comando `docker stop NomeDoContainer` e em seguida execute o comando para remover: `docker rm NomeDoContainer`
 
 ## 04 Sequelize & MVC
 [Voltar para índice](#indice)
