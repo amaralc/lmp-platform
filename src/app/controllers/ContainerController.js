@@ -50,6 +50,44 @@ class ContainerController {
       updated_by,
     });
   }
+
+  /** Metodo de alteracao dos dados do container */
+  async update(req, res) {
+    /** Define schema to validate req.body prior to 'store()' data */
+    const schema = Yup.object().shape({
+      /** Atribute 'id' is a required number */
+      id: Yup.number().required(),
+      /** Attribute 'description' is a required string */
+      description: Yup.string(),
+      /** Attribute 'number' is a required number */
+      number: Yup.number(),
+      /** Attribute 'room_id' is a required number */
+      room_id: Yup.number(),
+    });
+
+    /** If 'req.body' do not attend to the schema requirements (is not valid) */
+    if (!(await schema.isValid(req.body))) {
+      /** Return error status 400 with message 'Validation has failed' */
+      return res.status(400).json({ error: 'Validation has failed' });
+    }
+
+    /** Busca id de dentro do req.body */
+    const { id } = req.body;
+
+    /** Get current container information */
+    const container = await Container.findByPk(id);
+
+    /** If all requirements were met then updates user informaiton */
+    const { description, number, room_id } = await container.update(req.body);
+
+    /** Retorna json apenas com dados uteis ao frontend */
+    return res.json({
+      id,
+      description,
+      number,
+      room_id,
+    });
+  }
 }
 
 /* --------------------------------- EXPORTS ---------------------------------*/

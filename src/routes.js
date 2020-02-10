@@ -39,6 +39,8 @@ routes.post('/files', upload.single('file'), FileController.store);
 routes.post('/rooms', RoomController.store);
 /** Define rota POST para criar novo container */
 routes.post('/containers', ContainerController.store);
+/** Define rota PUT para editar container */
+routes.put('/containers', ContainerController.update);
 /** Define rota POST para criar nova ferramenta */
 routes.post('/tools', ToolController.store);
 /** Define rota POST para criar novo equipamento */
