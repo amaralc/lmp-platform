@@ -71,14 +71,13 @@ class ContainerController {
       return res.status(400).json({ error: 'Validation has failed' });
     }
 
-    /** Busca id de dentro do req.body */
-    const { id } = req.body;
-
     /** Get current container information */
-    const container = await Container.findByPk(id);
+    const container = await Container.findByPk(req.body.id);
 
     /** If all requirements were met then updates user informaiton */
-    const { description, number, room_id } = await container.update(req.body);
+    const { id, description, number, room_id } = await container.update(
+      req.body
+    );
 
     /** Retorna json apenas com dados uteis ao frontend */
     return res.json({
