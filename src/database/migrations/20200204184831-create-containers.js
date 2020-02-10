@@ -21,7 +21,18 @@ module.exports = {
       /** ID (primary key) da sala do container */
       room_id: {
         type: Sequelize.INTEGER,
-        allowNull: false,
+        allowNull: true,
+        /** ... que referencie... */
+        references: {
+          /** ... a tabela 'files' */
+          model: 'rooms',
+          /** ... usando a chave 'id' */
+          key: 'id',
+        },
+        /** Se 'room_id' for alterado, repasse a alteracao para tabela de container */
+        onUpdate: 'CASCADE',
+        /** Se 'room_id' for deletado, defina como nulo */
+        onDelete: 'SET NULL',
       },
       /** Timestamp de registro do container no sistema */
       created_at: {
