@@ -12,6 +12,7 @@ import RoomController from './app/controllers/RoomController';
 import ContainerController from './app/controllers/ContainerController';
 import ToolController from './app/controllers/ToolController';
 import EquipmentController from './app/controllers/EquipmentController';
+import LabController from './app/controllers/LabController';
 
 /* --------------------------------- CONTENT ---------------------------------*/
 /** Instancia novo roteador Router do express */
@@ -27,8 +28,6 @@ routes.post('/sessions', SessionController.store);
 routes.use(authMiddleware);
 /** Define rota PUT para editar dados do usuario */
 routes.put('/users', UserController.update);
-/** Define rota PUT para editar dados da ferramenta */
-routes.put('/tools', ToolController.update);
 /**
  * Define rota POST para upload de arquivos (com middleware local)
  * Middleware chama variavel upload, metodo 'single' para fazer upload de
@@ -43,8 +42,14 @@ routes.post('/containers', ContainerController.store);
 routes.put('/containers', ContainerController.update);
 /** Define rota POST para criar nova ferramenta */
 routes.post('/tools', ToolController.store);
+/** Define rota PUT para editar dados da ferramenta */
+routes.put('/tools', ToolController.update);
 /** Define rota POST para criar novo equipamento */
 routes.post('/equipment', EquipmentController.store);
+/** Define rota POST para criar novo laboratório */
+routes.post('/labs', LabController.store);
+/** Define rota PUT para editar informações de laboratório */
+routes.put('/labs', LabController.update);
 
 /* --------------------------------- EXPORTS ---------------------------------*/
 export default routes;
