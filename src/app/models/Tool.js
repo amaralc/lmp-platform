@@ -36,9 +36,9 @@ class Tool extends Model {
 
   /** Método que salva referencia de 'id' de Container dentro da tabela de ferramenta  */
   static associate(models) {
-    /** Coluna 'container' pertence a 'models.Container' */
+    /** Coluna 'container_id' pertence a 'models.Container' */
     this.belongsTo(models.Container, {
-      foreignKey: 'container',
+      foreignKey: 'container_id',
     });
   }
 }
