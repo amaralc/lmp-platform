@@ -55,8 +55,6 @@ class RoomController {
     });
   }
 
-  /* ----- ALTERAÇÃO DE DADOS DA SALA (UPDATE) ----- */
-
   /** Metodo de alteracao dos dados da sala */
   async update(req, res) {
     /** Define schema to validate req.body prior to 'update()' method */
