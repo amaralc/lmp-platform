@@ -29,6 +29,14 @@ class Room extends Model {
       }
     );
   }
+
+  /** Método que salva referencia de 'id' de Lab dentro da tabela de salas  */
+  static associate(models) {
+    /** Coluna 'lab_id' pertence a 'models.Lab' */
+    this.belongsTo(models.Lab, {
+      foreignKey: 'lab_id',
+    });
+  }
 }
 
 /* --------------------------------- EXPORTS ---------------------------------*/
