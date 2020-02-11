@@ -17,10 +17,9 @@ class Room extends Model {
      */
     super.init(
       {
-        number: Sequelize.STRING,
-        description: Sequelize.STRING,
+        number: Sequelize.INTEGER,
         lab: Sequelize.INTEGER,
-        containers: Sequelize.STRING,
+        description: Sequelize.STRING,
       },
       {
         /*
