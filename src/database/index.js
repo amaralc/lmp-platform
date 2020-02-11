@@ -7,10 +7,11 @@ import Room from '../app/models/Room';
 import Container from '../app/models/Container';
 import Tool from '../app/models/Tool';
 import Equipment from '../app/models/Equipment';
+import Lab from '../app/models/Lab';
 
 /* --------------------------------- CONTENT ---------------------------------*/
 /* Cria array com todos os models da aplicacao */
-const models = [User, File, Room, Container, Tool, Equipment];
+const models = [User, File, Room, Container, Tool, Equipment, Lab];
 
 /*
  ** Cria classe Database
