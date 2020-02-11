@@ -13,11 +13,11 @@ class LabController {
     /** Define schema to validate req.body prior to 'store()' data */
 
     const schema = Yup.object().shape({
-      /** Attribute 'description' is a required string */
+      /** Attribute 'name' is a required string */
       name: Yup.string().required(),
-      /** Attribute 'number' is a required number */
+      /** Attribute 'initials' is a required string */
       initials: Yup.string().required(),
-      /** Attribute 'room_id' is a required number */
+      /** Attribute 'responsible_id' is a required number */
       responsible_id: Yup.number().required(),
       /** Attribute 'physical_adress' is a string */
       physical_adress: Yup.string(),
@@ -47,7 +47,7 @@ class LabController {
     } = req.body;
 
     /**
-     * Cria usuario na base de dados usando resposta asincrona e retorna apenas
+     * Cria Lab na base de dados usando resposta asincrona e retorna apenas
      * dados uteis.
      */
     const lab = await Lab.create({
@@ -66,17 +66,17 @@ class LabController {
     return res.json(lab);
   }
 
-  /** Metodo de alteracao dos dados do container */
+  /** Metodo de alteracao dos dados do Lab */
   async update(req, res) {
     /** Define schema to validate req.body prior to 'store()' data */
     const schema = Yup.object().shape({
       /** Attribute 'id' is a required number */
       id: Yup.number().required(),
-      /** Attribute 'description' is a string */
+      /** Attribute 'name' is a string */
       name: Yup.string(),
-      /** Attribute 'number' is a required number */
+      /** Attribute 'initials' is a required string */
       initials: Yup.string(),
-      /** Attribute 'room_id' is a required number */
+      /** Attribute 'responsible_id' is a required number */
       responsible_id: Yup.number(),
       /** Attribute 'physical_adress' is a string */
       physical_adress: Yup.string(),
