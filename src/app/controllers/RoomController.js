@@ -6,8 +6,6 @@ import Room from '../models/Room';
 
 /* --------------------------------- CONTENT ---------------------------------*/
 
-/* ----- CADASTRO DA SALA (POST) ----- */
-
 class RoomController {
   /**
    * Metodo store com mesma face de um middleware no node.
@@ -21,9 +19,7 @@ class RoomController {
       /** Attribute 'lab' is a required number */
       lab: Yup.number().required(),
       /** Attribute 'description' is a required string */
-      description: Yup.string().required(),
-      /** Attribute 'container' is a required number */
-      containers: Yup.number().required(),
+      description: Yup.string().required(),      
     });
 
     /** If 'req.body' do not attend to the schema requirements (is not valid) */
@@ -47,7 +43,7 @@ class RoomController {
      * dados uteis.
      */
 
-    const { id, number, lab, description, container } = await Room.create(
+    const { id, number, lab, description } = await Room.create(
       req.body
     );
     /** Retorna json apenas com dados uteis ao frontend */
@@ -55,8 +51,7 @@ class RoomController {
       id,
       number,
       lab,
-      description,
-      container,
+      description,      
     });
   }
 
@@ -74,8 +69,6 @@ class RoomController {
       lab: Yup.number(),
       /** Attribute 'description' is a required string */
       description: Yup.string(),
-      /** Attribute 'container' is a required number */
-      containers: Yup.number(),
     });
     /** If 'req.body' do not attend to the schema requirements (is not valid) */
     if (!(await schema.isValid(req.body))) {
@@ -87,7 +80,7 @@ class RoomController {
     const room = await Room.findByPk(req.body.id);
 
     /** If all requirements were met then updates room information */
-    const { id, number, lab, description, containers } = await room.update(
+    const { id, number, lab, description } = await room.update(
       req.body
     );
 
@@ -97,7 +90,6 @@ class RoomController {
       number,
       lab,
       description,
-      containers,
     });
   }
 }
