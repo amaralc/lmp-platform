@@ -49,7 +49,7 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: true,
       },
-      /** Email do laboratório */
+      /** Número do telefone do laboratório */
       phone_number: {
         type: Sequelize.STRING,
         allowNull: true,
