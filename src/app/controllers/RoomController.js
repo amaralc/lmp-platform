@@ -32,6 +32,16 @@ class RoomController {
       return res.status(400).json({ error: 'Validation has failed' });
     }
 
+    /** Verifica se a sala do corpo da requisicao ja existe */
+    const roomExists = await Room.findOne({
+      where: { number: req.body.number },
+    });
+
+    /** Se a sala ja existir, retorna erro */
+    if (roomExists) {
+      return res.status(400).json({ error: 'Room already exists!' });
+    }
+
     /**
      * Cria sala na base de dados usando resposta asincrona e retorna apenas
      * dados uteis.
