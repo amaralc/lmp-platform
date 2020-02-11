@@ -54,7 +54,7 @@ class Lab extends Model {
 
   /** Método que salva referencia de 'id' de arquivo dentro da tabela de usuario  */
   static associate(models) {
-    /** Coluna 'avatar_id' pertence a 'models.File' */
+    /** Coluna 'responsible_id' pertence a 'models.File' */
     this.belongsTo(models.User, {
       foreignKey: 'responsible_id',
     });
