@@ -24,11 +24,6 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false,
       },
-      /* Atribui quais containers pertencem a sala. Referencia a tabela de containers */
-      containers: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-      },
       created_at: {
         type: Sequelize.DATE,
         allowNull: false,
