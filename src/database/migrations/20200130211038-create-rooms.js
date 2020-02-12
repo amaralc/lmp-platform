@@ -19,11 +19,6 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      /* Atribui a qual laboratorio pertence a sala. Referencia o banco de dados de laboratorios */
-      lab: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-      },
       created_at: {
         type: Sequelize.DATE,
         allowNull: false,
