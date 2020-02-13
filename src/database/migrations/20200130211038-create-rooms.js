@@ -39,8 +39,18 @@ module.exports = {
         type: Sequelize.DATE,
         allowNull: false,
       },
+      /** ID (primary key) do usuário que registrou o container */
+      created_by: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+      },
       updated_at: {
         type: Sequelize.DATE,
+        allowNull: false,
+      },
+      /** ID (primary key) do usuário que fez o último update do container */
+      updated_by: {
+        type: Sequelize.INTEGER,
         allowNull: false,
       },
     });
