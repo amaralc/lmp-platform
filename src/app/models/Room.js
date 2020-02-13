@@ -18,8 +18,8 @@ class Room extends Model {
     super.init(
       {
         number: Sequelize.INTEGER,
-        lab: Sequelize.INTEGER,
         description: Sequelize.STRING,
+        lab_id: Sequelize.INTEGER,
       },
       {
         /*
@@ -28,6 +28,14 @@ class Room extends Model {
         sequelize,
       }
     );
+  }
+
+  /** Método que salva referencia de 'id' de Lab dentro da tabela de salas  */
+  static associate(models) {
+    /** Coluna 'lab_id' pertence a 'models.Lab' */
+    this.belongsTo(models.Lab, {
+      foreignKey: 'lab_id',
+    });
   }
 }
 
