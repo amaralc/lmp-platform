@@ -41,6 +41,22 @@ module.exports = {
         defaultValue: null,
         allowNull: true,
       },
+      /** ID (primary key) do container onde ferramenta se encontra */
+      lab_id: {
+        type: Sequelize.INTEGER,
+        allowNull: true,
+        /** ... que referencie... */
+        references: {
+          /** ... a tabela 'containers' */
+          model: 'containers',
+          /** ... usando a chave 'id' */
+          key: 'id',
+        },
+        /** Se 'room_id' for alterado, repasse a alteracao para tabela de container */
+        onUpdate: 'CASCADE',
+        /** Se 'room_id' for deletado, defina como nulo */
+        onDelete: 'SET NULL',
+      },
       created_at: {
         type: Sequelize.DATE,
         allowNull: false,
