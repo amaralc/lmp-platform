@@ -134,7 +134,38 @@ class EquipmentController {
       return res.status(400).json({ error: 'Validation has failed' });
     }
 
+    const { ufsc_patrimony, feesc_patrimony } = req.body;
+
     const equipment = await Equipment.findByPk(req.body.id);
+
+    /** If user is changing the ufsc_patrimony */
+    if (ufsc_patrimony !== equipment.ufsc_patrimony) {
+      /** Verify if ufsc_patrimony already exists in the database */
+      const ufsc_patrimonyExists = await Equipment.findOne({
+        where: { ufsc_patrimony },
+      });
+
+      /** If feesc_patrimony is already taken return error */
+      if (ufsc_patrimonyExists) {
+        return res
+          .status(400)
+          .json({ error: 'ufsc_patrimony already exists!' });
+      }
+    }
+    /** If user is changing the feesc_patrimony */
+    if (feesc_patrimony !== equipment.feesc_patrimony) {
+      /** Verify if feesc_patrimony already exists in the database */
+      const feesc_patrimonyExists = await Equipment.findOne({
+        where: { feesc_patrimony },
+      });
+
+      /** If feesc_patrimony is already taken return error */
+      if (feesc_patrimonyExists) {
+        return res
+          .status(400)
+          .json({ error: 'feesc_patrimony already exists!' });
+      }
+    }
 
     /** If all requirements were met then updates user informaiton */
     const {
@@ -143,8 +174,6 @@ class EquipmentController {
       equipment_name,
       company,
       model,
-      ufsc_patrimony,
-      feesc_patrimony,
       color,
       serial_number,
       comments,
