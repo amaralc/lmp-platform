@@ -19,6 +19,7 @@ class Room extends Model {
       {
         number: Sequelize.INTEGER,
         description: Sequelize.STRING,
+        lab_id: Sequelize.INTEGER,
       },
       {
         /*
