@@ -20,6 +20,14 @@ class File extends Model {
       {
         name: Sequelize.STRING,
         path: Sequelize.STRING,
+        /** Criamos um campo virtual, que não existe na tabela, para passarmos a URL do avatar do user. */
+        url: {
+          type: Sequelize.VIRTUAL,
+          get() {
+            /** Retornamos então o prefixo localhost segudo pelo path do arquivo. */
+            return `http://localhost:3333/files/${this.path}`;
+          },
+        },
       },
       {
         /*

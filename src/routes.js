@@ -13,6 +13,7 @@ import ContainerController from './app/controllers/ContainerController';
 import ToolController from './app/controllers/ToolController';
 import EquipmentController from './app/controllers/EquipmentController';
 import LabController from './app/controllers/LabController';
+import ProviderController from './app/controllers/ProviderController';
 
 /* --------------------------------- CONTENT ---------------------------------*/
 /** Instancia novo roteador Router do express */
@@ -52,6 +53,8 @@ routes.post('/equipment', EquipmentController.store);
 routes.post('/labs', LabController.store);
 /** Define rota PUT para editar informações de laboratório */
 routes.put('/labs', LabController.update);
+/** Define rota GET para listagem de usuários que são providers */
+routes.get('/providers', ProviderController.index);
 
 /* --------------------------------- EXPORTS ---------------------------------*/
 export default routes;
