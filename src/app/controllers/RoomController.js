@@ -16,8 +16,10 @@ class RoomController {
     const schema = Yup.object().shape({
       /** Attribute 'number' is a required number */
       number: Yup.number().required(),
-      /** Attribute 'lab' is a required number */
+      /** Attribute 'description' is a required number */
       description: Yup.string().required(),
+      /** Attribute 'lab_id' is required a number */
+      lab_id: Yup.number().required(),      
     });
 
     /** If 'req.body' do not attend to the schema requirements (is not valid) */
@@ -41,13 +43,13 @@ class RoomController {
      * dados uteis.
      */
 
-    const { id, number, description } = await Room.create(req.body);
+    const { id, number, description, lab_id } = await Room.create(req.body);
     /** Retorna json apenas com dados uteis ao frontend */
     return res.json({
       id,
       number,
-
       description,
+      lab_id,
     });
   }
 
@@ -61,6 +63,8 @@ class RoomController {
       number: Yup.number(),
       /** Attribute 'description' is a required string */
       description: Yup.string(),
+      /** Attribute 'lab_id' is a number */
+      lab_id: Yup.number(),       
     });
     /** If 'req.body' do not attend to the schema requirements (is not valid) */
     if (!(await schema.isValid(req.body))) {
@@ -72,13 +76,14 @@ class RoomController {
     const room = await Room.findByPk(req.body.id);
 
     /** If all requirements were met then updates room information */
-    const { id, number, description } = await room.update(req.body);
+    const { id, number, description, lab_id } = await room.update(req.body);
 
     /** Retorna json apenas com dados uteis ao frontend */
     return res.json({
       id,
       number,
       description,
+      lab_id,
     });
   }
 }
