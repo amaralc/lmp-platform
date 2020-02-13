@@ -42,7 +42,7 @@ module.exports = {
         allowNull: true,
       },
       /** ID (primary key) do container onde ferramenta se encontra */
-      lab_id: {
+      container_id: {
         type: Sequelize.INTEGER,
         allowNull: true,
         /** ... que referencie... */
