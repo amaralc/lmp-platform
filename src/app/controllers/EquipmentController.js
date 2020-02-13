@@ -32,6 +32,8 @@ class EquipmentController {
       comments: Yup.string().required(),
       /** Attribute 'state' is a required string */
       state: Yup.string().required(),
+      /** Attribute 'room_id' is a required number */
+      room_id: Yup.number().required(),
       /** Attribute 'image' is a required number */
       image: Yup.string().required(),
     });
@@ -68,7 +70,6 @@ class EquipmentController {
      * dados uteis.
      */
     const {
-      id,
       category,
       equipment_name,
       company,
@@ -79,8 +80,31 @@ class EquipmentController {
       serial_number,
       comments,
       state,
+      room_id,
       image,
-    } = await Equipment.create(req.body);
+    } = req.body;
+
+    /**
+     * Cria usuario na base de dados usando resposta asincrona e retorna apenas
+     * dados uteis.
+     */
+
+    const { id, created_by, updated_by } = await Equipment.create({
+      category,
+      equipment_name,
+      company,
+      model,
+      ufsc_patrimony,
+      feesc_patrimony,
+      color,
+      serial_number,
+      comments,
+      state,
+      room_id,
+      image,
+      created_by: req.userId,
+      updated_by: req.userId,
+    });
 
     /** Retorna json apenas com dados uteis ao frontend */
     return res.json({
@@ -95,7 +119,10 @@ class EquipmentController {
       serial_number,
       comments,
       state,
+      room_id,
       image,
+      created_by,
+      updated_by,
     });
   }
 
@@ -125,6 +152,8 @@ class EquipmentController {
       comments: Yup.string(),
       /** Attribute 'state' is a required string */
       state: Yup.string(),
+      /** Attribute 'room_id' is a required number */
+      room_id: Yup.number().required(),
       /** Attribute 'image' is a required number */
       image: Yup.string(),
     });
@@ -166,10 +195,7 @@ class EquipmentController {
           .json({ error: 'feesc_patrimony already exists!' });
       }
     }
-
-    /** If all requirements were met then updates user informaiton */
     const {
-      id,
       category,
       equipment_name,
       company,
@@ -180,7 +206,24 @@ class EquipmentController {
       state,
       room_id,
       image,
-    } = await equipment.update(req.body);
+    } = req.body;
+
+    /** If all requirements were met then updates user informaiton */
+    const { id, updated_by } = await equipment.update({
+      category,
+      equipment_name,
+      company,
+      model,
+      ufsc_patrimony,
+      feesc_patrimony,
+      color,
+      serial_number,
+      comments,
+      state,
+      room_id,
+      image,
+      updated_by: req.userId,
+    });
 
     /** Retorna json apenas com dados uteis ao frontend */
     return res.json({
@@ -197,6 +240,7 @@ class EquipmentController {
       state,
       room_id,
       image,
+      updated_by,
     });
   }
 }
