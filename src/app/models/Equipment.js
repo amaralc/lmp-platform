@@ -23,6 +23,14 @@ class Equipment extends Model {
       }
     );
   }
+
+  /** Método que salva referencia de 'id' de sala dentro da tabela de equipamentos  */
+  static associate(models) {
+    /** Coluna 'room_id' pertence a 'models.Rooms' */
+    this.belongsTo(models.Room, {
+      foreignKey: 'room_id',
+    });
+  }
 }
 /* --------------------------------- EXPORTS ---------------------------------*/
 export default Equipment;
