@@ -57,12 +57,22 @@ module.exports = {
         /** Se 'room_id' for deletado, defina como nulo */
         onDelete: 'SET NULL',
       },
+      /** ID (primary key) do usuário que registrou a ferramenta */
       created_at: {
         type: Sequelize.DATE,
         allowNull: false,
       },
+      created_by: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+      },
       updated_at: {
         type: Sequelize.DATE,
+        allowNull: false,
+      },
+      /** ID (primary key) do usuário que fez o último update da ferramenta */
+      updated_by: {
+        type: Sequelize.INTEGER,
         allowNull: false,
       },
     });
