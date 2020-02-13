@@ -18,12 +18,27 @@ class Tool extends Model {
      */
     super.init(
       {
+        /** Name of the tool */
         tool_name: Sequelize.STRING,
+        /** Type of fit (parallel or conic) */
         fit_type: Sequelize.STRING,
+        /** Milling cutter type (cyllindrical, top, etc) */
         milling_cutter_type: Sequelize.STRING,
+        /** External diameter of the milling cutter (mm) */
         external_diameter: Sequelize.DOUBLE,
+        /** Thickness of the milling cutter (mm) */
         thickness: Sequelize.DOUBLE,
+        /** Internal diameter of the milling cutter (mm) */
         internal_diameter: Sequelize.DOUBLE,
+        /** ID (primary key) do container onde ferramenta se encontra */
+        container_id: Sequelize.INTEGER,
+        /** ID (primary key) do usuario que registrou a ferramenta */
+        created_by: Sequelize.INTEGER,
+        /**
+         * ID (primary key) do usuario que fez a ultima atualizacao dos dados
+         * da ferramenta.
+         */
+        updated_by: Sequelize.INTEGER,
       },
       {
         /*
