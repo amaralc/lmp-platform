@@ -17,6 +17,8 @@ class Equipment extends Model {
         state: Sequelize.STRING,
         room_id: Sequelize.INTEGER,
         image: Sequelize.STRING,
+        created_by: Sequelize.INTEGER,
+        updated_by: Sequelize.INTEGER,
       },
       {
         sequelize,
