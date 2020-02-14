@@ -9,6 +9,25 @@ class EquipmentController {
    * Metodo store com mesma face de um middleware no node.
    * Recebe dados do usuario e cria novo registro dentro da base de dados.
    */
+  async index(req, res) {
+    /** O User.findAll retornaria todos os usuários cadastrados, entretando... */
+    const equipment = await Equipment.findAll({
+      attributes: [
+        'category',
+        'equipment_name',
+        'company',
+        'model',
+        'color',
+        'serial_number',
+        'comments',
+        'state',
+        'room_id',
+        'image',
+      ],
+    });
+    return res.json(equipment);
+  }
+
   async store(req, res) {
     /** Define schema to validate req.body prior to 'store()' data */
     const schema = Yup.object().shape({
