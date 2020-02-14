@@ -17,9 +17,19 @@ class Room extends Model {
      */
     super.init(
       {
+        /** Número de identificação na etiqueta da sala */
         number: Sequelize.INTEGER,
+        /** Descrição breve da sala */
         description: Sequelize.STRING,
+        /** ID (primary key) do lab onde a sala se encontra */
         lab_id: Sequelize.INTEGER,
+        /** ID (primary key) do usuario que registrou a sala */
+        created_by: Sequelize.INTEGER,
+        /**
+         * ID (primary key) do usuario que fez a ultima atualizacao dos dados
+         * da sala.
+         */
+        updated_by: Sequelize.INTEGER,
       },
       {
         /*
