@@ -62,6 +62,7 @@ routes.put('/labs', LabController.update);
 routes.get('/providers', ProviderController.index);
 /** Define rota GET para listagem de usuários que são providers */
 routes.get('/equipment', EquipmentController.index);
-
+/** Define rota GET para listagem de agendamentos */
+routes.get('/bookings', BookingController.index);
 /* --------------------------------- EXPORTS ---------------------------------*/
 export default routes;
