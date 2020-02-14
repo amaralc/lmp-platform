@@ -3,7 +3,7 @@ import Sequelize, { Model } from 'sequelize';
 
 /* --------------------------------- CONTENT ---------------------------------*/
 /**
- * Cria classe File extendendo os metodos da classe Model, da dependencia
+ * Cria classe Appointment extendendo os metodos da classe Model, da dependencia
  * 'sequelize'
  */
 class Appointment extends Model {
@@ -18,9 +18,10 @@ class Appointment extends Model {
      */
     super.init(
       {
+        /** Data do agendamento */
         date: Sequelize.DATE,
+        /** Timestamp do cancelamento */
         canceled_at: Sequelize.DATE,
-        /** Criamos um campo virtual, que não existe na tabela, para passarmos a URL do avatar do user. */
       },
       {
         /*
@@ -34,11 +35,21 @@ class Appointment extends Model {
     return this;
   }
 
+  /** Cria relacionamento entre models */
   static associate(models) {
+    /**
+     * Obs: Quando fazemos mais de um relacionamento na tabela, somos obrigados
+     * a criar um "apelido" ('user_id', as 'user') para cada foreignKey para que
+     * o Sequelize não se perca.
+     */
+
+    /** Relaciona coluna 'user_id'como 'user' ao model 'User' */
     this.belongsTo(models.User, { foreignKey: 'user_id', as: 'user' });
+
+    /** Relaciona coluna 'provider_id'como 'provider' ao model 'User' */
     this.belongsTo(models.User, { foreignKey: 'provider_id', as: 'provider' });
   }
 }
 
 /* --------------------------------- EXPORTS ---------------------------------*/
-export default File;
+export default Appointment;
