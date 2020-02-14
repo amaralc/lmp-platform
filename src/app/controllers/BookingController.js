@@ -2,8 +2,32 @@
 import * as Yup from 'yup';
 import { startOfHour, parseISO, isBefore } from 'date-fns';
 import Booking from '../models/Booking';
+import Equipment from '../models/Equipment';
 /* --------------------------------- CONTENT ---------------------------------*/
 class BookingController {
+  async index(req, res) {
+    const booking = await Booking.findAll({
+      where: { user_id: req.userId, canceled_at: null },
+      order: ['date'],
+      include: {
+        model: Equipment,
+        attributes: [
+          'category',
+          'equipment_name',
+          'company',
+          'model',
+          'color',
+          'serial_number',
+          'comments',
+          'state',
+          'room_id',
+          'image',
+        ],
+      },
+    });
+    return res.json(booking);
+  }
+
   async store(req, res) {
     /** Define schema to validate req.body prior to 'store()' data */
     const schema = Yup.object().shape({
