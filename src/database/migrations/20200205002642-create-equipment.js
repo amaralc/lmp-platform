@@ -61,9 +61,21 @@ module.exports = {
         allowNull: false,
       },
       // ID da sala da tabela Rooms
+      /** ID (primary key) da sala onde equipamento se encontra */
       room_id: {
         type: Sequelize.INTEGER,
-        allowNull: false,
+        allowNull: true,
+        /** ... que referencie... */
+        references: {
+          /** ... a tabela 'salas' */
+          model: 'rooms',
+          /** ... usando a chave 'id' */
+          key: 'id',
+        },
+        /** Se 'lab_id' for alterado, repasse a alteracao para tabela de room */
+        onUpdate: 'CASCADE',
+        /** Se 'lab_id' for deletado, defina como nulo */
+        onDelete: 'SET NULL',
       },
       // Foto do equipamento
       image: {
@@ -74,8 +86,18 @@ module.exports = {
         type: Sequelize.DATE,
         allowNull: false,
       },
+      /** ID (primary key) do usuário que registrou o container */
+      created_by: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+      },
       updated_at: {
         type: Sequelize.DATE,
+        allowNull: false,
+      },
+      /** ID (primary key) do usuário que fez o último update do container */
+      updated_by: {
+        type: Sequelize.INTEGER,
         allowNull: false,
       },
     });

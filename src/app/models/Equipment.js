@@ -17,11 +17,21 @@ class Equipment extends Model {
         state: Sequelize.STRING,
         room_id: Sequelize.INTEGER,
         image: Sequelize.STRING,
+        created_by: Sequelize.INTEGER,
+        updated_by: Sequelize.INTEGER,
       },
       {
         sequelize,
       }
     );
+  }
+
+  /** Método que salva referencia de 'id' de sala dentro da tabela de equipamentos  */
+  static associate(models) {
+    /** Coluna 'room_id' pertence a 'models.Rooms' */
+    this.belongsTo(models.Room, {
+      foreignKey: 'room_id',
+    });
   }
 }
 /* --------------------------------- EXPORTS ---------------------------------*/

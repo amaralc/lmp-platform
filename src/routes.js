@@ -49,6 +49,8 @@ routes.post('/tools', ToolController.store);
 routes.put('/tools', ToolController.update);
 /** Define rota POST para criar novo equipamento */
 routes.post('/equipment', EquipmentController.store);
+/** Define rota PUT para editar dados do equipamento */
+routes.put('/equipment', EquipmentController.update);
 /** Define rota POST para criar novo laboratório */
 routes.post('/labs', LabController.store);
 /** Define rota PUT para editar informações de laboratório */
