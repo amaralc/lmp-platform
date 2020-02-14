@@ -1,54 +1,31 @@
 /* --------------------------------- EXPORTS ---------------------------------*/
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('tools', {
+    return queryInterface.createTable('labs', {
       id: {
         type: Sequelize.INTEGER,
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
       },
-      /** Name of the tool */
-      tool_name: {
+      /** Nome do laboratório */
+      name: {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      /** Type of fit (parallel or conic) */
-      fit_type: {
+      /** Número de identificação na etiqueta do container */
+      initials: {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      /** Milling cutter type (cyllindrical, top, etc) */
-      milling_cutter_type: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      /** External diameter of the milling cutter (mm) */
-      external_diameter: {
-        type: Sequelize.DOUBLE,
-        defaultValue: null,
-        allowNull: true,
-      },
-      /** Thickness of the milling cutter (mm) */
-      thickness: {
-        type: Sequelize.DOUBLE,
-        defaultValue: null,
-        allowNull: true,
-      },
-      /** Internal diameter of the milling cutter (mm) */
-      internal_diameter: {
-        type: Sequelize.DOUBLE,
-        defaultValue: null,
-        allowNull: true,
-      },
-      /** ID (primary key) do container onde ferramenta se encontra */
-      container_id: {
+      /** ID (primary key) da sala do container */
+      responsible_id: {
         type: Sequelize.INTEGER,
         allowNull: true,
         /** ... que referencie... */
         references: {
-          /** ... a tabela 'containers' */
-          model: 'containers',
+          /** ... a tabela 'files' */
+          model: 'users',
           /** ... usando a chave 'id' */
           key: 'id',
         },
@@ -57,20 +34,42 @@ module.exports = {
         /** Se 'room_id' for deletado, defina como nulo */
         onDelete: 'SET NULL',
       },
-      /** ID (primary key) do usuário que registrou a ferramenta */
+      /** Endereço físico do laboratório */
+      physical_adress: {
+        type: Sequelize.STRING,
+        allowNull: true,
+      },
+      /** Website do laboratório */
+      website_adress: {
+        type: Sequelize.STRING,
+        allowNull: true,
+      },
+      /** Email do laboratório */
+      email_adress: {
+        type: Sequelize.STRING,
+        allowNull: true,
+      },
+      /** Número do telefone do laboratório */
+      phone_number: {
+        type: Sequelize.STRING,
+        allowNull: true,
+      },
+      /** Timestamp de registro do container no sistema */
       created_at: {
         type: Sequelize.DATE,
         allowNull: false,
       },
+      /** ID (primary key) do usuário que registrou o container */
       created_by: {
         type: Sequelize.INTEGER,
         allowNull: false,
       },
+      /** Timestamp da última edição dos dados do container no sistema */
       updated_at: {
         type: Sequelize.DATE,
         allowNull: false,
       },
-      /** ID (primary key) do usuário que fez o último update da ferramenta */
+      /** ID (primary key) do usuário que fez o último update do container */
       updated_by: {
         type: Sequelize.INTEGER,
         allowNull: false,
@@ -79,6 +78,6 @@ module.exports = {
   },
 
   down: queryInterface => {
-    return queryInterface.dropTable('tools');
+    return queryInterface.dropTable('labs');
   },
 };

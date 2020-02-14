@@ -3,10 +3,10 @@ import Sequelize, { Model } from 'sequelize';
 
 /* --------------------------------- CONTENT ---------------------------------*/
 /**
- * Cria classe User extendendo os metodos da classe Model, da dependencia
+ * Cria classe Lab extendendo os metodos da classe Model, da dependencia
  * 'sequelize'
  */
-class Container extends Model {
+class Lab extends Model {
   /**
    * Metodo estatico que sera chamado automaticamente pelo sequelize
    */
@@ -18,12 +18,20 @@ class Container extends Model {
      */
     super.init(
       {
-        /** Descrição breve do container */
-        description: Sequelize.STRING,
-        /** Número de identificação na etiqueta do container */
-        number: Sequelize.STRING,
-        /** ID (primary key) da sala onde o container se encontra */
-        room_id: Sequelize.INTEGER,
+        /** Nome completo do laboratório */
+        name: Sequelize.STRING,
+        /** Sigla do laboratório */
+        initials: Sequelize.STRING,
+        /** ID do usuário responsável pelo laboratório */
+        responsible_id: Sequelize.INTEGER,
+        /** Endereço físico do laboratório */
+        physical_adress: Sequelize.STRING,
+        /** Website do laboratório */
+        website_adress: Sequelize.STRING,
+        /** Email do laboratório */
+        email_adress: Sequelize.STRING,
+        /** Telefone do laboratório */
+        phone_number: Sequelize.STRING,
         /** ID (primary key) do usuario que registrou o container */
         created_by: Sequelize.INTEGER,
         /**
@@ -46,12 +54,12 @@ class Container extends Model {
 
   /** Método que salva referencia de 'id' de arquivo dentro da tabela de usuario  */
   static associate(models) {
-    /** Coluna 'room_id' pertence a 'models.Room' */
-    this.belongsTo(models.Room, {
-      foreignKey: 'room_id',
+    /** Coluna 'responsible_id' pertence a 'models.User' */
+    this.belongsTo(models.User, {
+      foreignKey: 'responsible_id',
     });
   }
 }
 
 /* --------------------------------- EXPORTS ---------------------------------*/
-export default Container;
+export default Lab;

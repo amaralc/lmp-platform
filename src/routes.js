@@ -12,6 +12,8 @@ import RoomController from './app/controllers/RoomController';
 import ContainerController from './app/controllers/ContainerController';
 import ToolController from './app/controllers/ToolController';
 import EquipmentController from './app/controllers/EquipmentController';
+import LabController from './app/controllers/LabController';
+import ProviderController from './app/controllers/ProviderController';
 
 /* --------------------------------- CONTENT ---------------------------------*/
 /** Instancia novo roteador Router do express */
@@ -27,10 +29,6 @@ routes.post('/sessions', SessionController.store);
 routes.use(authMiddleware);
 /** Define rota PUT para editar dados do usuario */
 routes.put('/users', UserController.update);
-/** Define rota PUT para editar dados da ferramenta */
-routes.put('/tools', ToolController.update);
-/** Define rota PUT para editar dados do equipamento */
-routes.put('/equipment', EquipmentController.update);
 /**
  * Define rota POST para upload de arquivos (com middleware local)
  * Middleware chama variavel upload, metodo 'single' para fazer upload de
@@ -39,12 +37,26 @@ routes.put('/equipment', EquipmentController.update);
 routes.post('/files', upload.single('file'), FileController.store);
 /** Define rota POST para criar nova sala */
 routes.post('/rooms', RoomController.store);
+/** Define rota PUT para editar salas */
+routes.put('/rooms', RoomController.update);
 /** Define rota POST para criar novo container */
 routes.post('/containers', ContainerController.store);
+/** Define rota PUT para editar container */
+routes.put('/containers', ContainerController.update);
 /** Define rota POST para criar nova ferramenta */
 routes.post('/tools', ToolController.store);
+/** Define rota PUT para editar dados da ferramenta */
+routes.put('/tools', ToolController.update);
 /** Define rota POST para criar novo equipamento */
 routes.post('/equipment', EquipmentController.store);
+/** Define rota PUT para editar dados do equipamento */
+routes.put('/equipment', EquipmentController.update);
+/** Define rota POST para criar novo laboratório */
+routes.post('/labs', LabController.store);
+/** Define rota PUT para editar informações de laboratório */
+routes.put('/labs', LabController.update);
+/** Define rota GET para listagem de usuários que são providers */
+routes.get('/providers', ProviderController.index);
 
 /* --------------------------------- EXPORTS ---------------------------------*/
 export default routes;
