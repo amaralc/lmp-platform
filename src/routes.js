@@ -15,7 +15,7 @@ import EquipmentController from './app/controllers/EquipmentController';
 import LabController from './app/controllers/LabController';
 import ProviderController from './app/controllers/ProviderController';
 import BookingController from './app/controllers/BookingController';
-
+import ScheduleController from './app/controllers/ScheduleController';
 /* --------------------------------- CONTENT ---------------------------------*/
 /** Instancia novo roteador Router do express */
 const routes = new Router();
@@ -64,5 +64,7 @@ routes.get('/providers', ProviderController.index);
 routes.get('/equipment', EquipmentController.index);
 /** Define rota GET para listagem de agendamentos */
 routes.get('/bookings', BookingController.index);
+/** Define rota GET para listagem de agenda do equipamento */
+routes.get('/schedule', ScheduleController.index);
 /* --------------------------------- EXPORTS ---------------------------------*/
 export default routes;
