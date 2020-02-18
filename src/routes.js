@@ -14,6 +14,7 @@ import ToolController from './app/controllers/ToolController';
 import EquipmentController from './app/controllers/EquipmentController';
 import LabController from './app/controllers/LabController';
 import ProviderController from './app/controllers/ProviderController';
+import AppointmentController from './app/controllers/AppointmentController';
 
 /* --------------------------------- CONTENT ---------------------------------*/
 /** Instancia novo roteador Router do express */
@@ -55,6 +56,8 @@ routes.post('/labs', LabController.store);
 routes.put('/labs', LabController.update);
 /** Define rota GET para listagem de usuários que são providers */
 routes.get('/providers', ProviderController.index);
+/** Define rota POST para agendamento de serviço */
+routes.post('/appointments', AppointmentController.store);
 
 /* --------------------------------- EXPORTS ---------------------------------*/
 export default routes;
