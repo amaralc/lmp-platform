@@ -1,5 +1,6 @@
 /* --------------------------------- IMPORTS ---------------------------------*/
 import * as Yup from 'yup';
+import { startOfHour, parseISO, isBefore } from 'date-fns';
 import User from '../models/User';
 import Appointment from '../models/Appointment';
 
@@ -41,12 +42,44 @@ class AppointmentController {
         .json({ error: 'You can only create appointments with providers' });
     }
 
+    /** O método 'parseISO' irá transformar a string que recebemos em um objeto DATE do JS e este objeto pode ser
+     * utilizado dentro do método 'startOfHour'. Este último método, por exemplo, caso o usuário informe algum horário
+     * que não seja "o-clock", ele irá transformar este horário para o "o-clock" anterior. Ex.: 18:27:54 será
+     * transformado em 18:00:00 e armazenado em 'hourStart'. */
+
+    const hourStart = startOfHour(parseISO(date));
+
+    /** Check for past dates,
+     * Caso a data informada para agendamento for uma data anterior à data no momento do agendamento, retornará um erro. */
+
+    if (isBefore(hourStart, new Date())) {
+      return res.status(400).json({ error: 'Past dates are not permitted' });
+    }
+
+    /** Check date availability. */
+
+    const checkAvailability = await Appointment.findOne({
+      where: {
+        provider_id,
+        canceled_at: null,
+        date: hourStart,
+      },
+    });
+
+    /** Caso a 'date' informada para agendamento já estiver ocupada pelo 'provider_id' informado, retornará erro e não
+     * efetuará o agendamento, para que não haja duplicidade. */
+    if (checkAvailability) {
+      return res
+        .status(400)
+        .json({ error: 'Appointment date is not available' });
+    }
+
     /** Cria agendamento na base de dados usando resposta asincrona e retorna a confirmação dos dados. */
 
     const appointment = await Appointment.create({
       user_id: req.userId,
       provider_id,
-      date,
+      date: hourStart,
     });
 
     return res.json(appointment);
