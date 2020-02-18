@@ -9,8 +9,7 @@ class ScheduleController {
    * Coleta registro de agendamentos dentro da base de dados expõe ao usuário.
    */
   async index(req, res) {
-    /** 'date' é uma variável que será o 'name' no campo query do insomnia */
-    const { date } = req.query;
+    const { date, equipment_id } = req.query;
     /**
      * Método parseISO converte string que será digitada em um objeto
      * date do javascript.
@@ -19,6 +18,7 @@ class ScheduleController {
     /** O Booking.findAll retorna todos os agendamentos cadastrados */
     const bookings = await Booking.findAll({
       where: {
+        equipment_id,
         canceled_at: null,
         date: {
           /**
@@ -28,6 +28,7 @@ class ScheduleController {
           [Op.between]: [startOfDay(parsedDate), endOfDay(parsedDate)],
         },
       },
+
       /** Os agendamentos são ordenados por horário e data */
       order: ['date'],
     });
