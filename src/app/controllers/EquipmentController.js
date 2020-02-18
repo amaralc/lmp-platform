@@ -6,12 +6,13 @@ import Equipment from '../models/Equipment';
 /* --------------------------------- CONTENT ---------------------------------*/
 class EquipmentController {
   /**
-   * Metodo store com mesma face de um middleware no node.
-   * Recebe dados do usuario e cria novo registro dentro da base de dados.
+   * Metodo index com mesma face de um middleware no node.
+   * Coleta registro de equipmentos dentro da base de dados expõe ao usuário.
    */
   async index(req, res) {
-    /** O User.findAll retornaria todos os usuários cadastrados, entretando... */
+    /** O Equipment.findAll retorna todos os equipamentos cadastrados */
     const equipment = await Equipment.findAll({
+      /** 'attributes' filtra os dados que serão mostrados ao usuário */
       attributes: [
         'category',
         'equipment_name',
@@ -28,6 +29,10 @@ class EquipmentController {
     return res.json(equipment);
   }
 
+  /**
+   * Metodo store com mesma face de um middleware no node.
+   * Recebe dados do usuario e cria novo registro dentro da base de dados.
+   */
   async store(req, res) {
     /** Define schema to validate req.body prior to 'store()' data */
     const schema = Yup.object().shape({
