@@ -47,7 +47,7 @@ class Booking extends Model {
     /** Relaciona coluna 'user_id'como 'user' ao model 'User' */
     this.belongsTo(models.User, { foreignKey: 'user_id' });
 
-    /** Relaciona coluna 'provider_id'como 'provider' ao model 'User' */
+    /** Relaciona coluna 'equipment_id' ao model 'Equipment' */
     this.belongsTo(models.Equipment, {
       foreignKey: 'equipment_id',
     });
