@@ -58,6 +58,8 @@ routes.put('/labs', LabController.update);
 routes.get('/providers', ProviderController.index);
 /** Define rota POST para agendamento de serviço */
 routes.post('/appointments', AppointmentController.store);
+/** Define rota GET para consulta de agendamentos de serviço */
+routes.get('/appointments', AppointmentController.index);
 
 /* --------------------------------- EXPORTS ---------------------------------*/
 export default routes;
