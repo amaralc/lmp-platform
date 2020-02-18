@@ -27,16 +27,16 @@ module.exports = {
         /** Permita valores nulos para o campo */
         allowNull: true,
       },
-      /** Cria uma coluna equipment_id, que irá identificar qual prestador de serviço que irá atender esse agendamento */
+      /** Cria uma coluna equipment_id, que irá identificar qual equipamento está sendo agendado */
       equipment_id: {
         type: Sequelize.INTEGER,
         references: {
           model: 'equipment',
           key: 'id',
         },
-        /** Se o provedor for alterado, repasse a alteracao para tabela de usuarios */
+        /** Se o equipamento for alterado, repasse a alteracao para tabela de agendamentos */
         onUpdate: 'CASCADE',
-        /** Se o provedor for deletado, defina como nulo e o histórico de atendimento para o usuário não irá se perder. */
+        /** Se o equipmaneto for deletado, defina como nulo e o histórico de atendimento para o usuário não irá se perder. */
         onDelete: 'SET NULL',
         /** Permita valores nulos para o campo */
         allowNull: true,
