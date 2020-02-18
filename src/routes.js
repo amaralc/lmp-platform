@@ -14,6 +14,8 @@ import ToolController from './app/controllers/ToolController';
 import EquipmentController from './app/controllers/EquipmentController';
 import LabController from './app/controllers/LabController';
 import ProviderController from './app/controllers/ProviderController';
+import BookingController from './app/controllers/BookingController';
+import ScheduleController from './app/controllers/ScheduleController';
 
 /* --------------------------------- CONTENT ---------------------------------*/
 /** Instancia novo roteador Router do express */
@@ -53,10 +55,18 @@ routes.post('/equipment', EquipmentController.store);
 routes.put('/equipment', EquipmentController.update);
 /** Define rota POST para criar novo laboratório */
 routes.post('/labs', LabController.store);
+/** Define rota POST para criar novo agendamento */
+routes.post('/bookings', BookingController.store);
 /** Define rota PUT para editar informações de laboratório */
 routes.put('/labs', LabController.update);
 /** Define rota GET para listagem de usuários que são providers */
 routes.get('/providers', ProviderController.index);
+/** Define rota GET para listagem de equipamentos que estão disponíveis */
+routes.get('/equipment', EquipmentController.index);
+/** Define rota GET para listagem de agendamentos */
+routes.get('/bookings', BookingController.index);
+/** Define rota GET para listagem de agenda do equipamento */
+routes.get('/schedule', ScheduleController.index);
 
 /* --------------------------------- EXPORTS ---------------------------------*/
 export default routes;
