@@ -2,7 +2,7 @@
 /** Importa tudo de yup como Yup (dependencia nao tem export default) */
 import * as Yup from 'yup';
 /** Importa alguns métodos da biblioteca date-fns */
-import { startOfHour, parseISO, isBefore } from 'date-fns';
+import { startOfHour, parseISO, isBefore, subHours } from 'date-fns';
 import Booking from '../models/Booking';
 import Equipment from '../models/Equipment';
 /* --------------------------------- CONTENT ---------------------------------*/
@@ -104,6 +104,43 @@ class BookingController {
       equipment_id,
       date,
     });
+
+    return res.json(booking);
+  }
+
+  /**
+   * Metodo delete com mesma face de um middleware no node.
+   * Permite com que o usuário delete registro dentro da base de dados.
+   */
+  async delete(req, res) {
+    const booking = await Booking.findByPk(req.params.id);
+    /**
+     * Se o usuário que for deletar o agendamento não for o usuário que
+     * fez o agendamento, retorna erro.
+     */
+    if (booking.user_id !== req.userId) {
+      return res.statur(401).json({
+        error: "You don't have permission to cancel this booking",
+      });
+    }
+    /**
+     * Define variável que remove duas horas do horário do agendamento
+     * para prazo de cancelamento
+     */
+    const dateWithSub = subHours(booking.date, 2);
+    /**
+     * Checa se o horário marcado para agendamento está a pelo menos duas
+     * horas da hora em que o usuário marcou, se não está, retorna erro
+     */
+    if (isBefore(dateWithSub, new Date())) {
+      return res.status(401).json({
+        error: 'You can only cancel booking 2 hours in advance',
+      });
+    }
+    /** Data de cancelamento */
+    booking.canceled_at = new Date();
+
+    await booking.save();
 
     return res.json(booking);
   }
