@@ -71,7 +71,7 @@ module.exports = {
         type: Sequelize.DOUBLE,
         allowNull: true,
       },
-      /** ID (primary key) da sala do container */
+      /** ID (primary key) do responsável pelo equipamento */
       responsible_id: {
         type: Sequelize.INTEGER,
         allowNull: true,
