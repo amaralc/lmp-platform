@@ -38,6 +38,8 @@ class EquipmentController {
     const schema = Yup.object().shape({
       /** Attribute 'category' is a required string */
       category: Yup.string().required(),
+      /** Attribute 'responsible_id' is number */
+      responsible_id: Yup.number(),
       /** Attribute 'equipment_name' is a required string */
       equipment_name: Yup.string().required(),
       /** Attribute 'company' is a required string */
@@ -60,6 +62,8 @@ class EquipmentController {
       room_id: Yup.number().required(),
       /** Attribute 'image' is a required number */
       image: Yup.string().required(),
+      /** Attribute 'hourly_rate_brl' is a number (in BRL currency) */
+      hourly_rate_brl: Yup.number(),
     });
 
     /** If 'req.body' do not attend to the schema requirements (is not valid) */
@@ -90,11 +94,12 @@ class EquipmentController {
         .json({ error: 'FEESC Patrimony number already exists.' });
     }
     /**
-     * Cria usuario na base de dados usando resposta asincrona e retorna apenas
+     * Cria equipamento na base de dados usando resposta asincrona e retorna apenas
      * dados uteis.
      */
     const {
       category,
+      responsible_id,
       equipment_name,
       company,
       model,
@@ -106,15 +111,16 @@ class EquipmentController {
       state,
       room_id,
       image,
+      hourly_rate_brl,
     } = req.body;
 
     /**
-     * Cria usuario na base de dados usando resposta asincrona e retorna apenas
+     * Cria equipamento na base de dados usando resposta asincrona e retorna apenas
      * dados uteis.
      */
-
     const { id, created_by, updated_by } = await Equipment.create({
       category,
+      responsible_id,
       equipment_name,
       company,
       model,
@@ -126,14 +132,16 @@ class EquipmentController {
       state,
       room_id,
       image,
+      hourly_rate_brl,
       created_by: req.userId,
       updated_by: req.userId,
     });
 
-    /** Retorna json apenas com dados uteis ao frontend */
+    /** Retorna json com dados uteis ao frontend */
     return res.json({
       id,
       category,
+      responsible_id,
       equipment_name,
       company,
       ufsc_patrimony,
@@ -145,12 +153,13 @@ class EquipmentController {
       state,
       room_id,
       image,
+      hourly_rate_brl,
       created_by,
       updated_by,
     });
   }
 
-  /** Metodo de alteracao dos dados do usuario */
+  /** Metodo de alteracao dos dados do equipamento */
   async update(req, res) {
     /** Define schema to validate req.body prior to 'store()' data */
     const schema = Yup.object().shape({
@@ -158,6 +167,8 @@ class EquipmentController {
       id: Yup.number().required(),
       /** Attribute 'category' is a required string */
       category: Yup.string(),
+      /** Attribute 'responsible_id' is a number */
+      responsible_id: Yup.number(),
       /** Attribute 'equipment_name' is a required string */
       equipment_name: Yup.string(),
       /** Attribute 'company' is a required string */
@@ -180,6 +191,8 @@ class EquipmentController {
       room_id: Yup.number().required(),
       /** Attribute 'image' is a required number */
       image: Yup.string(),
+      /** Attribute 'hourly_rate_brl' is a number (in BRL currency) */
+      hourly_rate_brl: Yup.number(),
     });
     /** If 'req.body' do not attend to the schema requirements (is not valid) */
     if (!(await schema.isValid(req.body))) {
@@ -187,8 +200,10 @@ class EquipmentController {
       return res.status(400).json({ error: 'Validation has failed' });
     }
 
+    /** Desestrutura e salva atributos 'ufsc_patrimony' e 'feesc_patrimony' de req.body */
     const { ufsc_patrimony, feesc_patrimony } = req.body;
 
+    /** Encontra equipamento no banco de dados a partir de seu ID */
     const equipment = await Equipment.findByPk(req.body.id);
 
     /** If user is changing the ufsc_patrimony */
@@ -219,8 +234,11 @@ class EquipmentController {
           .json({ error: 'feesc_patrimony already exists!' });
       }
     }
+
+    /** Desestrutura e salva informações do corpo da requisição */
     const {
       category,
+      responsible_id,
       equipment_name,
       company,
       model,
@@ -230,11 +248,13 @@ class EquipmentController {
       state,
       room_id,
       image,
+      hourly_rate_brl,
     } = req.body;
 
     /** If all requirements were met then updates user informaiton */
     const { id, updated_by } = await equipment.update({
       category,
+      responsible_id,
       equipment_name,
       company,
       model,
@@ -246,6 +266,7 @@ class EquipmentController {
       state,
       room_id,
       image,
+      hourly_rate_brl,
       updated_by: req.userId,
     });
 
@@ -253,6 +274,7 @@ class EquipmentController {
     return res.json({
       id,
       category,
+      responsible_id,
       equipment_name,
       company,
       model,
@@ -264,6 +286,7 @@ class EquipmentController {
       state,
       room_id,
       image,
+      hourly_rate_brl,
       updated_by,
     });
   }
