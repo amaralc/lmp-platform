@@ -94,7 +94,7 @@ class EquipmentController {
         .json({ error: 'FEESC Patrimony number already exists.' });
     }
     /**
-     * Cria usuario na base de dados usando resposta asincrona e retorna apenas
+     * Cria equipamento na base de dados usando resposta asincrona e retorna apenas
      * dados uteis.
      */
     const {
@@ -115,7 +115,7 @@ class EquipmentController {
     } = req.body;
 
     /**
-     * Cria usuario na base de dados usando resposta asincrona e retorna apenas
+     * Cria equipamento na base de dados usando resposta asincrona e retorna apenas
      * dados uteis.
      */
     const { id, created_by, updated_by } = await Equipment.create({
@@ -159,7 +159,7 @@ class EquipmentController {
     });
   }
 
-  /** Metodo de alteracao dos dados do usuario */
+  /** Metodo de alteracao dos dados do equipamento */
   async update(req, res) {
     /** Define schema to validate req.body prior to 'store()' data */
     const schema = Yup.object().shape({
