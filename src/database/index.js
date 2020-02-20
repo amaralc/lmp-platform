@@ -1,5 +1,6 @@
 /* --------------------------------- IMPORTS ---------------------------------*/
 import Sequelize from 'sequelize';
+import mongoose from 'mongoose';
 import databaseConfig from '../config/database';
 import User from '../app/models/User';
 import File from '../app/models/File';
@@ -20,6 +21,7 @@ const models = [User, File, Room, Container, Tool, Equipment, Lab, Appointment];
 class Database {
   constructor() {
     this.init();
+    this.mongo();
   }
 
   /*
@@ -40,6 +42,20 @@ class Database {
 
       /** Se 'model.associate' existir (condição &&) chama metodo passando models */
       .map(model => model.associate && model.associate(this.connection.models));
+  }
+
+  /** Passa a url de conexão do mongo */
+  mongo() {
+    this.mongoConnection = mongoose.connect(
+      'mongodb://localhost:27017/gobarber',
+      /**
+       * useNewUrlParser permite com que se use o formato mais novo de
+       * url do mongo
+       * useFindAndModify: configuração do mongo para quando o desenvolvedor
+       * for encontrar e modificar registros
+       */
+      { useNewUrlParser: true, useFindAndModify: true }
+    );
   }
 }
 
