@@ -5,6 +5,7 @@ import * as Yup from 'yup';
 import { startOfHour, parseISO, isBefore, subHours } from 'date-fns';
 import Booking from '../models/Booking';
 import Equipment from '../models/Equipment';
+import Mail from '../../lib/Mail';
 /* --------------------------------- CONTENT ---------------------------------*/
 class BookingController {
   /**
@@ -113,7 +114,26 @@ class BookingController {
    * Permite com que o usuário delete registro dentro da base de dados.
    */
   async delete(req, res) {
-    const booking = await Booking.findByPk(req.params.id);
+    const booking = await Booking.findByPk(req.params.id, {
+      include: [
+        {
+          model: Equipment,
+          /** 'attributes' filtra os dados que serão mostrados ao usuário */
+          attributes: [
+            'category',
+            'equipment_name',
+            'company',
+            'model',
+            'color',
+            'serial_number',
+            'comments',
+            'state',
+            'room_id',
+            'image',
+          ],
+        },
+      ],
+    });
     /**
      * Se o usuário que for deletar o agendamento não for o usuário que
      * fez o agendamento, retorna erro.
@@ -141,6 +161,12 @@ class BookingController {
     booking.canceled_at = new Date();
 
     await booking.save();
+
+    await Mail.sendMail({
+      to: `${booking.user_id} <${booking.Equipment.responsible_id}`,
+      subject: 'Agendamento cancelado',
+      text: 'Você tem um novo cancelamento',
+    });
 
     return res.json(booking);
   }
