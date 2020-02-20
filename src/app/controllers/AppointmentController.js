@@ -9,6 +9,8 @@ import Appointment from '../models/Appointment';
 
 class AppointmentController {
   async index(req, res) {
+    /** Pega 'page' de req.query, a partir da página 1 por padrão */
+    const { page = 1 } = req.query;
     /** A variavél appointments irá encontrar todos os registros... */
     const appointments = await Appointment.findAll({
       /** ... onde 'user_id' for o ID do usuário que está "logado" na sessão atual e apenas os agendamentos que não
@@ -19,6 +21,10 @@ class AppointmentController {
       /** Utilizamos o método 'attributes' para retornar apenas os dados necessários,
        * são eles o id do appointment e a data agendada. */
       attributes: ['id', 'date'],
+      /** Lista no máximo 20 registros */
+      limit: 20,
+      /** offset define quantos registros o sistema irá pular */
+      offset: (page - 1) * 20,
       /** Incluirá algumas informações do prestador de serviço... */
       include: [
         {
