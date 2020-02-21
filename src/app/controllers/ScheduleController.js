@@ -9,6 +9,7 @@ class ScheduleController {
    * Coleta registro de agendamentos dentro da base de dados expõe ao usuário.
    */
   async index(req, res) {
+    /** Desestrutura variaveis 'date' e 'equipment_id' de dentro da  */
     const { date, equipment_id } = req.query;
     /**
      * Método parseISO converte string que será digitada em um objeto
