@@ -47,14 +47,18 @@ class Database {
   /** Passa a url de conexão do mongo */
   mongo() {
     this.mongoConnection = mongoose.connect(
-      'mongodb://localhost:27017/gobarber',
+      'mongodb://localhost:27017/lmp-platform',
       /**
        * useNewUrlParser permite com que se use o formato mais novo de
        * url do mongo
        * useFindAndModify: configuração do mongo para quando o desenvolvedor
        * for encontrar e modificar registros
        */
-      { useNewUrlParser: true, useFindAndModify: true }
+      {
+        useNewUrlParser: true,
+        useFindAndModify: true,
+        useUnifiedTopology: true,
+      }
     );
   }
 }
