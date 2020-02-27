@@ -19,7 +19,7 @@ class RoomController {
       /** Attribute 'description' is a required number */
       description: Yup.string().required(),
       /** Attribute 'lab_id' is required a number */
-      lab_id: Yup.number().required(),      
+      lab_id: Yup.number().required(),
     });
 
     /** If 'req.body' do not attend to the schema requirements (is not valid) */
@@ -64,7 +64,7 @@ class RoomController {
       /** Attribute 'description' is a required string */
       description: Yup.string(),
       /** Attribute 'lab_id' is a number */
-      lab_id: Yup.number(),       
+      lab_id: Yup.number(),
     });
     /** If 'req.body' do not attend to the schema requirements (is not valid) */
     if (!(await schema.isValid(req.body))) {
