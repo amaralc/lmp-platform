@@ -1,9 +1,11 @@
 /* --------------------------------- IMPORTS ---------------------------------*/
 import * as Yup from 'yup';
-import { startOfHour, parseISO, isBefore } from 'date-fns';
+import { startOfHour, parseISO, isBefore, format } from 'date-fns';
+import pt from 'date-fns/locale/pt';
 import User from '../models/User';
 import File from '../models/File';
 import Appointment from '../models/Appointment';
+import Notification from '../schemas/Notification';
 
 /* --------------------------------- CONTENT ---------------------------------*/
 
@@ -123,11 +125,35 @@ class AppointmentController {
     }
 
     /** Cria agendamento na base de dados usando resposta asincrona e retorna a confirmação dos dados. */
-
     const appointment = await Appointment.create({
       user_id: req.userId,
       provider_id,
-      date: hourStart,
+      date,
+    });
+
+    /**
+     * Save current user in variable 'user'
+     */
+    const user = await User.findByPk(req.userId);
+
+    /**
+     * Formata data do agendamento
+     */
+    const formattedDate = format(
+      /** Data a ser formatada */
+      hourStart,
+      /** Formato (utilizando aspas simples para inserir texto na formatação) */
+      "'dia' dd 'de' MMMM', às' HH:mm'h'",
+      /** Idioma do formato (utilizado para converter MMMM no nome do mês) */
+      { locale: pt }
+    );
+
+    /**
+     * Notify appointment to provider
+     */
+    await Notification.create({
+      content: `Novo agendamento de ${user.name} para ${formattedDate}`,
+      user: provider_id,
     });
 
     return res.json(appointment);
