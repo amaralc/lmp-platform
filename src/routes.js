@@ -16,6 +16,8 @@ import LabController from './app/controllers/LabController';
 import ProviderController from './app/controllers/ProviderController';
 import AppointmentController from './app/controllers/AppointmentController';
 import ScheduleController from './app/controllers/ScheduleController';
+import NotificationController from './app/controllers/NotificationController';
+
 /* --------------------------------- CONTENT ---------------------------------*/
 /** Instancia novo roteador Router do express */
 const routes = new Router();
@@ -62,6 +64,8 @@ routes.post('/appointments', AppointmentController.store);
 routes.get('/schedule', ScheduleController.index);
 /** Define rota GET para consulta de agendamentos de serviço */
 routes.get('/appointments', AppointmentController.index);
+/** Define rota GET para consulta de notificacoes do prestador de servico */
+routes.get('/notifications', NotificationController.index);
 
 /* --------------------------------- EXPORTS ---------------------------------*/
 export default routes;
