@@ -56,7 +56,7 @@ class Database {
        */
       {
         useNewUrlParser: true,
-        useFindAndModify: true,
+        useFindAndModify: false,
         useUnifiedTopology: true,
       }
     );
