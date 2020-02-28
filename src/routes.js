@@ -58,12 +58,16 @@ routes.post('/labs', LabController.store);
 routes.put('/labs', LabController.update);
 /** Define rota GET para listagem de usuários que são providers */
 routes.get('/providers', ProviderController.index);
-/** Define rota POST para agendamento de serviço */
-routes.post('/appointments', AppointmentController.store);
 /** Define rota GET para listagem de agenda do provider */
 routes.get('/schedule', ScheduleController.index);
+
+/** Define rota POST para agendamento de serviço */
+routes.post('/appointments', AppointmentController.store);
 /** Define rota GET para consulta de agendamentos de serviço */
 routes.get('/appointments', AppointmentController.index);
+/** Define rota DELETE para cancelar agendamento */
+routes.delete('/appointments/:id', AppointmentController.delete);
+
 /** Define rota GET para consulta de notificacoes do prestador de servico */
 routes.get('/notifications', NotificationController.index);
 /** Define rota PUT para marcar notificacoes como lidas */
