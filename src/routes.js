@@ -66,6 +66,8 @@ routes.get('/schedule', ScheduleController.index);
 routes.get('/appointments', AppointmentController.index);
 /** Define rota GET para consulta de notificacoes do prestador de servico */
 routes.get('/notifications', NotificationController.index);
+/** Define rota PUT para marcar notificacoes como lidas */
+routes.put('/notifications/:id', NotificationController.update);
 
 /* --------------------------------- EXPORTS ---------------------------------*/
 export default routes;
