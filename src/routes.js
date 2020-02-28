@@ -65,6 +65,8 @@ routes.get('/providers', ProviderController.index);
 routes.get('/equipment', EquipmentController.index);
 /** Define rota GET para listagem de agendamentos */
 routes.get('/bookings', BookingController.index);
+/** Define rota DELETE para deletar agendamentos */
+routes.delete('/bookings/:id', BookingController.delete);
 /** Define rota GET para listagem de agenda do equipamento */
 routes.get('/schedule', ScheduleController.index);
 
