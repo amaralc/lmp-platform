@@ -32,6 +32,29 @@ class NotificationController {
     /** Retorna notificacoes */
     return res.json(notifications);
   }
+
+  async update(req, res) {
+    /**
+     * Atualiza notificacao pelo id
+     */
+
+    const notification = await Notification.findByIdAndUpdate(
+      req.params.id,
+      /** Marca como lida */
+      { read: true },
+      /**
+       * Depois que atualizar, retorna nova notificacao atualizada.
+       * Sem essa opcao, notificacao é atualizada mas não retornada para
+       * variável 'notification'
+       */
+      { new: true }
+    );
+
+    /**
+     * Envia resposta com notificação atualizada
+     */
+    return res.json(notification);
+  }
 }
 
 /* --------------------------------- EXPORTS ---------------------------------*/
