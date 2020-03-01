@@ -163,7 +163,19 @@ class AppointmentController {
     /**
      * Cria objeto 'appointment' buscando pelo parametro 'id' no banco de dados
      */
-    const appointment = await Appointment.findByPk(req.params.id);
+    const appointment = await Appointment.findByPk(req.params.id, {
+      /**
+       * Inclui informações do prestador de serviços
+       */
+      include: [
+        {
+          model: User,
+          /** Salva com nome 'provider' conforme definido no model Appointment */
+          as: 'provider',
+          attributes: ['name', 'email'],
+        },
+      ],
+    });
 
     /**
      * Impede que usuario cancele agendamento a menos que seja o dono
