@@ -144,7 +144,7 @@ class AppointmentController {
       /** Data a ser formatada */
       hourStart,
       /** Formato (utilizando aspas simples para inserir texto na formatação) */
-      "'dia' dd 'de' MMMM', às' HH:mm'h'",
+      "'dia' dd 'de' MMMM', às' H:mm'h'",
       /** Idioma do formato (utilizado para converter MMMM no nome do mês) */
       { locale: pt }
     );
@@ -174,6 +174,11 @@ class AppointmentController {
           /** Salva com nome 'provider' conforme definido no model Appointment */
           as: 'provider',
           attributes: ['name', 'email'],
+        },
+        {
+          model: User,
+          as: 'user',
+          attributes: ['name'],
         },
       ],
     });
@@ -215,10 +220,22 @@ class AppointmentController {
     /**
      * Envia email
      */
+
     await Mail.sendMail({
       to: `${appointment.provider.name} <${appointment.provider.email}>`,
       subject: 'Agendamento cancelado',
-      text: 'Você tem um novo cancelamento',
+      /** Retirou-se o 'text' e adiocionou-se 'template' */
+      template: 'cancellation',
+      /** Envia todas as variáveis que o cancellation está esperando */
+      context: {
+        /** Informa nome do provedor */
+        provider: appointment.provider.name,
+        /** Informa nome do cliente */
+        user: appointment.user.name,
+        date: format(appointment.date, "'dia' dd 'de' MMMM', às' H:mm'h'", {
+          locale: pt,
+        }),
+      },
     });
 
     return res.json(appointment);
