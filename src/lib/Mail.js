@@ -1,5 +1,8 @@
 /* --------------------------------- IMPORTS ---------------------------------*/
 import nodemailer from 'nodemailer';
+import { resolve } from 'path';
+import exphbs from 'express-handlebars';
+import nodemailerhbs from 'nodemailer-express-handlebars';
 import mailConfig from '../config/mail';
 
 /* --------------------------------- CONTENT ---------------------------------*/
@@ -19,6 +22,30 @@ class Mail {
        */
       auth: auth.user ? auth : null,
     });
+    /** Chama o método configureTemplates */
+    this.configureTemplates();
+  }
+
+  configureTemplates() {
+    /**
+     * Cria caminho para onde estão os templates
+     * Usa resolve para navegar até a pasta emails
+     */
+    const viewPath = resolve(__dirname, '..', 'app', 'views', 'emails');
+    this.transporter.use(
+      'compile',
+      nodemailerhbs({
+        viewEngine: exphbs.create({
+          /** Usa resolve para viewPath e anexar com o layouts */
+          layoutsDir: resolve(viewPath, 'layouts'),
+          partialsDir: resolve(viewPath, 'partials'),
+          defaultLayout: 'default',
+          extname: '.hbs',
+        }),
+        viewPath,
+        extName: '.hbs',
+      })
+    );
   }
 
   /** Método responsável por enviar o e-mail */
