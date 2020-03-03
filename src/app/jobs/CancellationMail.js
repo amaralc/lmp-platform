@@ -5,10 +5,17 @@ import Mail from '../../lib/Mail';
 
 /* --------------------------------- CONTENT ---------------------------------*/
 class CancellationMail {
+  /** Declara variável key de fácil acesso utilizando get */
   get key() {
+    /** Retorna chave única */
     return 'CancellationMail';
   }
 
+  /**
+   * Método handle é chamdo para o envio de cada email
+   * Usa desetruturação para para chamar o método handle com informações
+   * selecionadas
+   */
   async handle({ data }) {
     const { appointment } = data;
 
