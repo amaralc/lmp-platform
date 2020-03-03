@@ -219,9 +219,10 @@ class AppointmentController {
     await appointment.save();
 
     /**
-     *
+     * Adiciona job de cancelamento referenciado pela chave
      */
     await Queue.add(CancellationMail.key, {
+      /** Passa os dados do appointment dentro de um objeto */
       appointment,
       teste: 'teste',
     });
