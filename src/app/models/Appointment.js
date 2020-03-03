@@ -1,5 +1,6 @@
 /* --------------------------------- IMPORTS ---------------------------------*/
 import Sequelize, { Model } from 'sequelize';
+import { isBefore, subHours } from 'date-fns';
 
 /* --------------------------------- CONTENT ---------------------------------*/
 /**
@@ -22,6 +23,26 @@ class Appointment extends Model {
         date: Sequelize.DATE,
         /** Timestamp do cancelamento */
         canceled_at: Sequelize.DATE,
+        /** Agendamentos que ja aconteceram (boolean) */
+        past: {
+          /** Campo que não existe no banco de dados */
+          type: Sequelize.VIRTUAL,
+          /** Utiliza metodo get() para retornar o valor do campo virtual */
+          get() {
+            return isBefore(this.date, new Date());
+          },
+        },
+        /** Indica se campo é cancelável ou não (boolean) */
+        cancelable: {
+          type: Sequelize.VIRTUAL,
+          get() {
+            /**
+             * Retorna true se horário atual for ao menos 2 horas anterior
+             * ao horário do agendamento.
+             */
+            return isBefore(new Date(), subHours(this.date, 2));
+          },
+        },
       },
       {
         /*
