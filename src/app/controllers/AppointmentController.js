@@ -17,14 +17,23 @@ class AppointmentController {
     const { page = 1 } = req.query;
     /** A variavél appointments irá encontrar todos os registros... */
     const appointments = await Appointment.findAll({
-      /** ... onde 'user_id' for o ID do usuário que está "logado" na sessão atual e apenas os agendamentos que não
-       * foram cancelados ainda, ou seja, 'canceled_at' seja nulo. */
+      /**
+       * ... onde 'user_id' for o ID do usuário que está "logado" na sessão
+       * atual e apenas os agendamentos que não foram cancelados ainda, ou seja,
+       * 'canceled_at' seja nulo.
+       */
       where: { user_id: req.userId, canceled_at: null },
-      /** Exibirá os agendamentos em ordem cronológica, do mais antigo ao mais atual. */
+      /**
+       * Exibirá os agendamentos em ordem cronológica, do mais antigo ao mais
+       * atual
+       */
       order: ['date'],
-      /** Utilizamos o método 'attributes' para retornar apenas os dados necessários,
-       * são eles o id do appointment e a data agendada. */
-      attributes: ['id', 'date'],
+      /**
+       * Utilizamos o método 'attributes' para retornar apenas os dados
+       * necessários, são eles o id do appointment, data agendada e se
+       * agendamento é anterior ao timestamp atual e se ainda é cancelável
+       */
+      attributes: ['id', 'date', 'past', 'cancelable'],
       /** Lista no máximo 20 registros */
       limit: 20,
       /** offset define quantos registros o sistema irá pular */
