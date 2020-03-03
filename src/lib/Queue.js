@@ -53,9 +53,15 @@ class Queue {
     jobs.forEach(job => {
       /** Busca o bee e o handle da fila relacionada ao job */
       const { bee, handle } = this.queues[job.key];
-
-      bee.process(handle);
+      /** Ouve evento 'failed e retorna handleFailure ou processa normalmente */
+      bee.on('failed', this.handleFailure).process(handle);
     });
+  }
+
+  /** Método que age em caso de erros */
+  handleFailure(job, err) {
+    /** Em caso de erro retorna log do nome da fila e o erro */
+    console.log(`Queue ${job.queue.name}: FAILED`, err);
   }
 }
 /* --------------------------------- EXPORTS ---------------------------------*/
