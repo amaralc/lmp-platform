@@ -1,4 +1,4 @@
 /* --------------------------------- EXPORTS ---------------------------------*/
 export default {
-  dsn: 'https://9e59a9c0d87041c18b19db185c654e57@sentry.io/3746925',
+  dsn: process.env.SENTRY_DSN,
 };

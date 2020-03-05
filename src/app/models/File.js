@@ -25,7 +25,7 @@ class File extends Model {
           type: Sequelize.VIRTUAL,
           get() {
             /** Retornamos então o prefixo localhost segudo pelo path do arquivo. */
-            return `http://localhost:3333/files/${this.path}`;
+            return `${process.env.APP_URL}/files/${this.path}`;
           },
         },
       },

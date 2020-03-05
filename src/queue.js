@@ -1,4 +1,9 @@
 /* --------------------------------- IMPORTS ---------------------------------*/
+/**
+ * Carrega todas as variáveis ambiente e coloca dentro de variável global do
+ * node chamada process.env
+ */
+import 'dotenv/config';
 import Queue from './lib/Queue';
 
 /* --------------------------------- CONTENT ---------------------------------*/

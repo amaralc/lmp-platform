@@ -2,9 +2,9 @@
 /** Exporta configurações do redis */
 export default {
   /** Host que o redis roda por padrão */
-  host: '127.0.0.1',
+  host: process.env.REDIS_HOST,
   /**
    * Porta padrão do redis
    */
-  port: '6379',
+  port: process.env.REDIS_PORT,
 };
