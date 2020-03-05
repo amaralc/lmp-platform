@@ -1,7 +1,17 @@
 /* --------------------------------- IMPORTS ---------------------------------*/
 import express from 'express';
 import path from 'path';
+import Youch from 'youch';
+import * as Sentry from '@sentry/node';
+/**
+ * Biblioteca 'express-async-erros' utilizada em conjunto com sentry para
+ * exibir erros dentro de funcoes assíncronas (async) precisa ser chamada antes
+ * de importar as rotas e depois de importar 'express'
+ */
+import 'express-async-errors';
 import routes from './routes';
+import sentryConfig from './config/sentry';
+
 /*
  ** Importa arquivo que faz conexao com banco de dados. Nao é necessario passar
  ** o caminho completo com '.../index.js', pois ele ja assimila automaticamente
