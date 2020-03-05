@@ -47,7 +47,10 @@ class Database {
   /** Passa a url de conexão do mongo */
   mongo() {
     this.mongoConnection = mongoose.connect(
-      'mongodb://localhost:27017/lmp-platform',
+      /**
+       * URL do mongo
+       */
+      process.env.MONGO_URL,
       /**
        * useNewUrlParser permite com que se use o formato mais novo de
        * url do mongo

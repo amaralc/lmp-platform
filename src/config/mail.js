@@ -23,17 +23,17 @@
  */
 export default {
   /** Servidor */
-  host: 'smtp.mailtrap.io',
+  host: process.env.MAIL_HOST,
   /** Porta */
-  port: '2525',
+  port: process.env.MAIL_PORT,
   /** Está usando SSL ou não (padrão 'false') */
   secure: false,
   /** Autenticação do email */
   auth: {
     /** Usuario (email) */
-    user: '4b734618a4df6d',
+    user: process.env.MAIL_USER,
     /** Senha */
-    pass: '244d07327ae007',
+    pass: process.env.MAIL_PASS,
   },
   /** Configurações padrão para todo envio de email */
   default: {
