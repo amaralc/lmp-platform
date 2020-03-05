@@ -1,4 +1,9 @@
 /* --------------------------------- IMPORTS ---------------------------------*/
+/**
+ * Carrega todas as variáveis ambiente e coloca dentro de variável global do
+ * node chamada process.env
+ */
+import 'dotenv/config';
 import express from 'express';
 import path from 'path';
 import Youch from 'youch';
@@ -63,11 +68,21 @@ class App {
 
   exceptionHandler() {
     this.server.use(async (err, req, res, next) => {
-      const errors = await new Youch(err, req).toJSON();
       /**
-       * Retorna erro de servidor em formato json
+       * Retorna erros detalhados apenas em ambiente de desenvolvimento
        */
-      return res.status(500).json(errors);
+      if (process.env.NODE_ENV === 'development') {
+        const errors = await new Youch(err, req).toJSON();
+        /**
+         * Retorna erro de servidor em formato json
+         */
+        return res.status(500).json(errors);
+      }
+
+      /**
+       * Em ambiente de produção, retorna mensagem simplificada
+       */
+      return res.status(500).json({ error: 'Internal server error' });
     });
   }
 }
