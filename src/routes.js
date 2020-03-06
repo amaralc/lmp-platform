@@ -29,6 +29,9 @@ routes.post('/users', UserController.store);
 /** Define rota POST para criar nova session */
 routes.post('/sessions', SessionController.store);
 
+/** Define rota get de teste para avaliar integração contínua com buddy works */
+routes.get('/', (req, res) => res.json({ 'lmp-platform': 'Up and running!' }));
+
 /** Define MIDDLEWARE GLOBAL que vale para rotas que vem apos sua declaracao */
 routes.use(authMiddleware);
 /** Define rota PUT para editar dados do usuario */
