@@ -55,6 +55,16 @@ class User extends Model {
     return this;
   }
 
+  /** Método que salva referencia de 'id' de arquivo dentro da tabela de usuario  */
+  static associate(models) {
+    /** Coluna 'avatar_id' pertence a 'models.File' */
+    this.belongsTo(models.File, {
+      foreignKey: 'avatar_id',
+      /** Utilizando o AS, podemos alterar o nome que será retornado, ao invés de retornar File, retornará avatar. */
+      as: 'avatar',
+    });
+  }
+
   /** Recebe senha enviada pelo cliente */
   checkPassword(password) {
     /**
