@@ -1,11 +1,19 @@
+/* --------------------------------- IMPORTS ---------------------------------*/
+/**
+ * Carrega todas as variáveis ambiente e coloca dentro de variável global do
+ * node chamada process.env
+ * Necessário utilizar sintaxe 'require';
+ */
+require('dotenv/config');
+
 /* --------------------------------- EXPORTS ---------------------------------*/
 module.exports = {
   /* Define dados para conexao com banco de dados */
   dialect: 'postgres', // informa qual sera o dialeto utilizado
-  host: 'localhost', // informa o host onde se encontra a base de dados
-  username: 'postgres', // informa username para acesso
-  password: 'docker', // password para acesso
-  database: 'gostack-gobarber', // nome do banco de dados criado
+  host: process.env.DB_HOST, // informa o host onde se encontra a base de dados
+  username: process.env.DB_USER, // informa username para acesso
+  password: process.env.DB_PASS, // password para acesso
+  database: process.env.DB_NAME, // nome do banco de dados criado
 
   // define funcinalidades extra
   define: {
