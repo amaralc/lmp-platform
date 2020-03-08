@@ -4,6 +4,7 @@ import jwt from 'jsonwebtoken';
 import * as Yup from 'yup';
 import authConfig from '../../config/auth';
 import User from '../models/User';
+import File from '../models/File';
 
 /* --------------------------------- CONTENT ---------------------------------*/
 class SessionController {
@@ -27,7 +28,17 @@ class SessionController {
     const { email, password } = req.body;
 
     /** Encontra usuario que tem campo email = variavel email (short sintax) */
-    const user = await User.findOne({ where: { email } });
+    const user = await User.findOne({
+      where: { email },
+      /** Inclui model file salvo como 'avatar' (ver metodo associate de User.js) */
+      include: [
+        {
+          model: File,
+          as: 'avatar',
+          attributes: ['id', 'path', 'url'],
+        },
+      ],
+    });
 
     /** Se usuario nao existe retorna erro 401 (nao autorizado) */
     if (!user) {
@@ -39,12 +50,15 @@ class SessionController {
       return res.status(401).json({ error: 'Password does not match' });
     }
 
-    /** Se email foi encontrado e senha estiver correta salva 'id' e 'name' */
-    const { id, name } = user;
+    /**
+     * Se email foi encontrado e senha estiver correta salva 'id', 'name',
+     * 'avatar' e 'provider'
+     */
+    const { id, name, avatar, provider } = user;
 
     return res.json({
       /** Retorna dados do usuario para o cliente */
-      user: { id, name, email },
+      user: { id, name, email, avatar, provider },
       /** Retorna jwt token */
       token: jwt.sign(
         /** Envia payload */
