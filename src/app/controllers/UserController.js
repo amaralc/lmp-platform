@@ -2,6 +2,7 @@
 /** Importa tudo de yup como Yup (dependencia nao tem export default) */
 import * as Yup from 'yup';
 import User from '../models/User';
+import File from '../models/File';
 
 /* --------------------------------- CONTENT ---------------------------------*/
 class UserController {
@@ -123,7 +124,18 @@ class UserController {
     }
 
     /** If all requirements were met then updates user informaiton */
-    const { id, name, provider } = await user.update(req.body);
+    await user.update(req.body);
+
+    /** Save user information and include avatar */
+    const { id, name, provider, avatar } = await User.findByPk(req.userId, {
+      include: [
+        {
+          model: File,
+          as: 'avatar',
+          attributes: ['id', 'path', 'url'],
+        },
+      ],
+    });
 
     /** Retorna json apenas com dados uteis ao frontend */
     return res.json({
@@ -131,6 +143,7 @@ class UserController {
       name,
       email,
       provider,
+      avatar,
     });
   }
 }
