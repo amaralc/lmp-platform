@@ -3,7 +3,7 @@ import { startOfDay, endOfDay, parseISO } from 'date-fns';
 import { Op } from 'sequelize';
 import Booking from '../models/Booking';
 
-class ScheduleController {
+class EquipmentScheduleController {
   /**
    * Metodo index com mesma face de um middleware no node.
    * Coleta registro de agendamentos dentro da base de dados expõe ao usuário.
@@ -38,4 +38,4 @@ class ScheduleController {
   }
 }
 
-export default new ScheduleController();
+export default new EquipmentScheduleController();
