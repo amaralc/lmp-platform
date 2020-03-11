@@ -93,9 +93,9 @@ routes.put('/notifications/:id', NotificationController.update);
 /** Define rota GET para listagem de usuários que são providers */
 routes.get('/providers', ProviderController.index);
 /** Define rota GET para listagem de agenda do equipamento */
-routes.get('/equipmentschedule', EquipmentScheduleController.index);
+routes.get('/equipment-schedule', EquipmentScheduleController.index);
 /** Define rota GET para listagem de agenda do provider */
-routes.get('/schedule', ProviderScheduleController.index);
+routes.get('/provider-schedule', ProviderScheduleController.index);
 /** Define rota GET para listagem de horarios disponiveis de um provider */
 routes.get('/providers/:providerId/available', AvailableController.index);
 
