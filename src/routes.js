@@ -17,7 +17,7 @@ import ProviderController from './app/controllers/ProviderController';
 import BookingController from './app/controllers/BookingController';
 import EquipmentScheduleController from './app/controllers/EquipmentScheduleController';
 import AppointmentController from './app/controllers/AppointmentController';
-import ScheduleController from './app/controllers/ScheduleController';
+import ProviderScheduleController from './app/controllers/ProviderScheduleController';
 import NotificationController from './app/controllers/NotificationController';
 import AvailableController from './app/controllers/AvailableController';
 
@@ -93,9 +93,9 @@ routes.put('/notifications/:id', NotificationController.update);
 /** Define rota GET para listagem de usuários que são providers */
 routes.get('/providers', ProviderController.index);
 /** Define rota GET para listagem de agenda do equipamento */
-routes.get('/equipmentschedule', EquipmentScheduleController.index);
+routes.get('/equipment-schedule', EquipmentScheduleController.index);
 /** Define rota GET para listagem de agenda do provider */
-routes.get('/schedule', ScheduleController.index);
+routes.get('/provider-schedule', ProviderScheduleController.index);
 /** Define rota GET para listagem de horarios disponiveis de um provider */
 routes.get('/providers/:providerId/available', AvailableController.index);
 
