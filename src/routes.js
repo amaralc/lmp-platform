@@ -30,6 +30,8 @@ const upload = multer(multerConfig);
 routes.post('/users', UserController.store);
 /** Define rota POST para criar nova session */
 routes.post('/sessions', SessionController.store);
+/** Define rota GET para listagem de equipamentos que estão disponíveis */
+routes.get('/equipment', EquipmentController.index);
 
 /** Define rota get de teste para avaliar integração contínua com buddy works */
 routes.get('/', (req, res) => res.json({ 'lmp-platform': 'Up and running!' }));
@@ -61,8 +63,7 @@ routes.put('/tools', ToolController.update);
 
 /** Define rota POST para criar novo equipamento */
 routes.post('/equipment', EquipmentController.store);
-/** Define rota GET para listagem de equipamentos que estão disponíveis */
-routes.get('/equipment', EquipmentController.index);
+
 /** Define rota PUT para editar dados do equipamento */
 routes.put('/equipment', EquipmentController.update);
 
