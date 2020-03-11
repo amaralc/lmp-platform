@@ -37,19 +37,27 @@ class RoomController {
     if (roomExists) {
       return res.status(400).json({ error: 'Room already exists!' });
     }
-
+    const { number, description, lab_id } = req.body;
     /**
      * Cria sala na base de dados usando resposta asincrona e retorna apenas
      * dados uteis.
      */
 
-    const { id, number, description, lab_id } = await Room.create(req.body);
+    const { id, created_by, updated_by } = await Room.create({
+      number,
+      description,
+      lab_id,
+      created_by: req.userId,
+      updated_by: req.userId,
+    });
     /** Retorna json apenas com dados uteis ao frontend */
     return res.json({
       id,
       number,
       description,
       lab_id,
+      created_by,
+      updated_by,
     });
   }
 
@@ -72,11 +80,18 @@ class RoomController {
       return res.status(400).json({ error: 'Validation has failed' });
     }
 
+    const { number, description, lab_id } = req.body;
+
     /** Get current room information */
     const room = await Room.findByPk(req.body.id);
 
     /** If all requirements were met then updates room information */
-    const { id, number, description, lab_id } = await room.update(req.body);
+    const { id, updated_by } = await room.update({
+      number,
+      description,
+      lab_id,
+      updated_by: req.userId,
+    });
 
     /** Retorna json apenas com dados uteis ao frontend */
     return res.json({
@@ -84,6 +99,7 @@ class RoomController {
       number,
       description,
       lab_id,
+      updated_by,
     });
   }
 }

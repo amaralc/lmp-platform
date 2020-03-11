@@ -74,10 +74,16 @@ class ContainerController {
     /** Get current container information */
     const container = await Container.findByPk(req.body.id);
 
+    /** Salva variaveis do corpo da requisição */
+    const { description, number, room_id } = req.body;
+
     /** If all requirements were met then updates user informaiton */
-    const { id, description, number, room_id } = await container.update(
-      req.body
-    );
+    const { id, updated_by } = await container.update({
+      description,
+      number,
+      room_id,
+      updated_by: req.userId,
+    });
 
     /** Retorna json apenas com dados uteis ao frontend */
     return res.json({
@@ -85,6 +91,7 @@ class ContainerController {
       description,
       number,
       room_id,
+      updated_by,
     });
   }
 }
