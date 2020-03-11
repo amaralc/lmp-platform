@@ -15,7 +15,7 @@ import EquipmentController from './app/controllers/EquipmentController';
 import LabController from './app/controllers/LabController';
 import ProviderController from './app/controllers/ProviderController';
 import BookingController from './app/controllers/BookingController';
-import ScheduleController from './app/controllers/ScheduleController';
+import EquipmentScheduleController from './app/controllers/EquipmentScheduleController';
 
 /* --------------------------------- CONTENT ---------------------------------*/
 /** Instancia novo roteador Router do express */
@@ -68,7 +68,7 @@ routes.get('/bookings', BookingController.index);
 /** Define rota DELETE para deletar agendamentos */
 routes.delete('/bookings/:id', BookingController.delete);
 /** Define rota GET para listagem de agenda do equipamento */
-routes.get('/schedule', ScheduleController.index);
+routes.get('/equipmentschedule', EquipmentScheduleController.index);
 
 /* --------------------------------- EXPORTS ---------------------------------*/
 export default routes;
