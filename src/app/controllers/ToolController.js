@@ -28,6 +28,8 @@ class ToolController {
       thickness: Yup.number().required(),
       /** Attribute 'internal_diameter' is a required number */
       internal_diameter: Yup.number().required(),
+      /** Attribute 'container_id' is a required number */
+      container_id: Yup.number().required(),
     });
     /** If 'req.body' do not attend to the schema requirements (is not valid) */
     if (!(await schema.isValid(req.body))) {
@@ -35,19 +37,31 @@ class ToolController {
       return res.status(400).json({ error: 'Validation has failed' });
     }
 
-    /**
-     * Cria Ferramenta na base de dados usando resposta asincrona e retorna apenas
-     * dados uteis.
-     */
     const {
-      id,
       tool_name,
       fit_type,
       milling_cutter_type,
       external_diameter,
       thickness,
       internal_diameter,
-    } = await Tool.create(req.body);
+      container_id,
+    } = req.body;
+
+    /**
+     * Cria Ferramenta na base de dados usando resposta asincrona e retorna apenas
+     * dados uteis.
+     */
+    const { id, created_by, updated_by } = await Tool.create({
+      tool_name,
+      fit_type,
+      milling_cutter_type,
+      external_diameter,
+      thickness,
+      internal_diameter,
+      container_id,
+      created_by: req.userId,
+      updated_by: req.userId,
+    });
     /** Retorna json apenas com dados uteis ao frontend */
     return res.json({
       id,
@@ -57,10 +71,11 @@ class ToolController {
       external_diameter,
       thickness,
       internal_diameter,
+      container_id,
+      created_by,
+      updated_by,
     });
   }
-
-  /* ----- ALTERAÇÃO DE DADOS DA FERRAMENTA (UPDATE) ----- */
 
   /** Metodo de alteracao dos dados da ferramenta */
   async update(req, res) {
@@ -87,19 +102,30 @@ class ToolController {
       return res.status(400).json({ error: 'Validation has failed' });
     }
 
-    /** Get current tool information */
-    const tool = await Tool.findByPk(req.body.id);
-
-    /** If all requirements were met then updates tool information */
     const {
-      id,
       tool_name,
       fit_type,
       milling_cutter_type,
       external_diameter,
       thickness,
       internal_diameter,
-    } = await tool.update(req.body);
+      container_id,
+    } = req.body;
+
+    /** Get current tool information */
+    const tool = await Tool.findByPk(req.body.id);
+
+    /** If all requirements were met then updates tool information */
+    const { id, updated_by } = await tool.update({
+      tool_name,
+      fit_type,
+      milling_cutter_type,
+      external_diameter,
+      thickness,
+      internal_diameter,
+      container_id,
+      updated_by: req.userId,
+    });
 
     /** Retorna json apenas com dados uteis ao frontend */
     return res.json({
@@ -110,6 +136,8 @@ class ToolController {
       external_diameter,
       thickness,
       internal_diameter,
+      container_id,
+      updated_by,
     });
   }
 }

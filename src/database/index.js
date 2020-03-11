@@ -10,10 +10,11 @@ import Tool from '../app/models/Tool';
 import Equipment from '../app/models/Equipment';
 import Lab from '../app/models/Lab';
 import Appointment from '../app/models/Appointment';
+import Booking from '../app/models/Booking';
 
 /* --------------------------------- CONTENT ---------------------------------*/
 /* Cria array com todos os models da aplicacao */
-const models = [User, File, Room, Container, Tool, Equipment, Lab, Appointment];
+const models = [User, File, Room, Container, Tool, Equipment, Lab, Appointment, Booking];
 
 /*
  ** Cria classe Database

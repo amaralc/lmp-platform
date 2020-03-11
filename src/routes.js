@@ -14,8 +14,10 @@ import ToolController from './app/controllers/ToolController';
 import EquipmentController from './app/controllers/EquipmentController';
 import LabController from './app/controllers/LabController';
 import ProviderController from './app/controllers/ProviderController';
+import BookingController from './app/controllers/BookingController';
+import EquipmentScheduleController from './app/controllers/EquipmentScheduleController';
 import AppointmentController from './app/controllers/AppointmentController';
-import ScheduleController from './app/controllers/ScheduleController';
+import ProviderScheduleController from './app/controllers/ProviderScheduleController';
 import NotificationController from './app/controllers/NotificationController';
 import AvailableController from './app/controllers/AvailableController';
 
@@ -59,19 +61,22 @@ routes.put('/tools', ToolController.update);
 
 /** Define rota POST para criar novo equipamento */
 routes.post('/equipment', EquipmentController.store);
+/** Define rota GET para listagem de equipamentos que estão disponíveis */
+routes.get('/equipment', EquipmentController.index);
+/** Define rota PUT para editar dados do equipamento */
+routes.put('/equipment', EquipmentController.update);
 
 /** Define rota POST para criar novo laboratório */
 routes.post('/labs', LabController.store);
 /** Define rota PUT para editar informações de laboratório */
 routes.put('/labs', LabController.update);
 
-/** Define rota GET para listagem de usuários que são providers */
-routes.get('/providers', ProviderController.index);
-/** Define rota GET para listagem de horarios disponiveis de um provider */
-routes.get('/providers/:providerId/available', AvailableController.index);
-
-/** Define rota GET para listagem de agenda do provider */
-routes.get('/schedule', ScheduleController.index);
+/** Define rota POST para criar novo agendamento */
+routes.post('/bookings', BookingController.store);
+/** Define rota GET para listagem de agendamentos */
+routes.get('/bookings', BookingController.index);
+/** Define rota DELETE para deletar agendamentos */
+routes.delete('/bookings/:id', BookingController.delete);
 
 /** Define rota POST para agendamento de serviço */
 routes.post('/appointments', AppointmentController.store);
@@ -84,6 +89,15 @@ routes.delete('/appointments/:id', AppointmentController.delete);
 routes.get('/notifications', NotificationController.index);
 /** Define rota PUT para marcar notificacoes como lidas */
 routes.put('/notifications/:id', NotificationController.update);
+
+/** Define rota GET para listagem de usuários que são providers */
+routes.get('/providers', ProviderController.index);
+/** Define rota GET para listagem de agenda do equipamento */
+routes.get('/equipment-schedule', EquipmentScheduleController.index);
+/** Define rota GET para listagem de agenda do provider */
+routes.get('/provider-schedule', ProviderScheduleController.index);
+/** Define rota GET para listagem de horarios disponiveis de um provider */
+routes.get('/providers/:providerId/available', AvailableController.index);
 
 /* --------------------------------- EXPORTS ---------------------------------*/
 export default routes;
