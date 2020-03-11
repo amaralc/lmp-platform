@@ -3,7 +3,7 @@ import { Op } from 'sequelize';
 import Appointment from '../models/Appointment';
 import User from '../models/User';
 
-class SchedulerController {
+class ProviderScheduleController {
   async index(req, res) {
     /** Busca o usuário no banco de dados para checar se é um provider */
     const checkUserProvider = await User.findOne({
@@ -38,4 +38,4 @@ class SchedulerController {
   }
 }
 
-export default new SchedulerController();
+export default new ProviderScheduleController();
