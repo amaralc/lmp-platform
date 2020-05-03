@@ -17,6 +17,7 @@ import ProviderController from './app/controllers/ProviderController';
 import BookingController from './app/controllers/BookingController';
 import EquipmentScheduleController from './app/controllers/EquipmentScheduleController';
 import AppointmentController from './app/controllers/AppointmentController';
+import ScheduleController from './app/controllers/ScheduleController';
 import ProviderScheduleController from './app/controllers/ProviderScheduleController';
 import NotificationController from './app/controllers/NotificationController';
 import AvailableController from './app/controllers/AvailableController';
@@ -85,6 +86,9 @@ routes.post('/appointments', AppointmentController.store);
 routes.get('/appointments', AppointmentController.index);
 /** Define rota DELETE para cancelar agendamento */
 routes.delete('/appointments/:id', AppointmentController.delete);
+
+/** Define rota GET para listagem de agendamentos do prestador */
+routes.get('/schedule', ScheduleController.index);
 
 /** Define rota GET para consulta de notificacoes do prestador de servico */
 routes.get('/notifications', NotificationController.index);
